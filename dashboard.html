@@ -1,9 +1,162 @@
-<script src="parametres_soirees.js"></script>
-<script src="bieres.js"></script>
-<script src="calcul_prix.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.1/chart.min.js" integrity="sha512-O2fWHvFel3xjQSi9FyzKXWLTvnom+lOYR/AUEThL/fbP4hv1Lo5LCFCGuTXBRyKC4K4DJldg5kxptkgXAzUpvA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="dashboard.js"></script>
 
-<div id="biere_kro"></div>
-<div id="biere_at"></div>
-<div id="biere_btou"></div>
-<!-- <div id="biere_oppp"></div>
-<div id="biere_cqd"></div> -->
+<style>
+	html {
+		background : #0c0c0e;
+		font-family: system-ui;
+	}
+	.conteneur {
+		padding : 20px;
+		border-radius: 12px;
+		background-color: #202029;
+	}
+	#banniere {
+		display: flex;
+		width:100%;
+		height:90px;
+		box-sizing: border-box;
+	}
+	#titre {
+		font-size: 45px;
+		color: #fff;
+		font-weight: 700;
+		margin-left: 25px;
+		align-self: center;
+		white-space: nowrap;
+	}
+	#moins_chere {
+		color:#fff;
+		float:right;
+		align-self: center;
+		width:100%;
+		margin-right:20px;
+		text-align: right;
+	}
+	#moins_chere .hashtag_prix {
+		font-size: 70px;
+		font-weight: 600;
+		color: #30ff70;
+		font-family: sans-serif;
+		margin-left:40px;
+		margin-right:5px;
+	}
+	#moins_chere .indice {
+		font-size: 25px;
+		font-family: sans-serif;
+		margin-right:10px;
+	}
+
+	#afficheur_prix {
+		width:100%;
+		height:100%;
+		color: #fff;
+		border-collapse: collapse;
+		min-width:500px;
+	}
+	#afficheur_prix th {
+		width:33%;
+	}
+	#afficheur_prix tr:nth-child(even) {background: rgba(255,255,255,0.06);}
+
+	#afficheur_prix tr[croissance="positive"] .indice, #afficheur_prix tr[croissance="positive"] .prix, #afficheur_prix tr[croissance="positive"] .croissance {color : rgb(60, 151, 60);}
+	#afficheur_prix tr[croissance="negative"] .indice, #afficheur_prix tr[croissance="negative"] .prix, #afficheur_prix tr[croissance="negative"] .croissance {color : rgb(202, 58, 58);}
+
+	#afficheur_prix th.cercle, #afficheur_prix th.indice, #afficheur_prix th.prix, #afficheur_prix th.croissance {
+		width:fit-content;
+		margin-right:2px;
+	}
+
+	#afficheur_prix td.indice, #afficheur_prix td.prix, #afficheur_prix td.croissance {
+		text-align: center;
+	}
+</style>
+
+<html>
+	<body style="margin:0">
+		<div style="height:100vh;width:100vw;margin:0;overflow:hidden;display:flex; flex-flow: column;">
+			<div id="remerciements" style="position:absolute; color:rgba(255,255,255,0.6); top:0px; right:6px;">
+				développé par Marc Bresson
+			</div>
+			<div class="conteneur" style="margin:20px 10px 0px 10px; padding:0px">
+				<div id="banniere">
+					<div id="logo" style="float:left;">
+						<img src="logo_bar.png" height="100%"/>
+					</div>
+					<div id="titre">
+						Soirée bourse
+					</div>
+					<span id="moins_chere">
+						<span><span class="hashtag_prix">#1</span><span class="indice" id="numero_1"></span></span>
+						<span><span class="hashtag_prix">#2</span><span class="indice" id="numero_2"></span></span>
+						<span><span class="hashtag_prix">#3</span><span class="indice" id="numero_3"></span></span>
+					</span>
+				</div>
+			</div>
+			<div style="display:flex; flex-flow: row; flex: 1 1 auto;margin:10px;">
+				<div class="chart-container conteneur" style="position: relative; height:100%; width:70%; box-sizing: border-box; margin-right: 10px; flex: 1 1 auto;">
+					<canvas id="chart" style="width:100%;height:100%;"></canvas>
+				</div>
+				<div class="conteneur" style="height:100%; width: auto; box-sizing: border-box;">
+					<table id="afficheur_prix">
+						<thead>
+							<tr>
+								<th class="cercle"></th>
+								<th class="nom">nom</th>
+								<th class="indice">indice</th>
+								<th class="prix">prix</th>
+								<th class="croissance">croissance</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script>
+
+const ctx = document.getElementById('chart').getContext('2d');
+
+const config = {
+  type: 'line',
+  options: {
+		plugins: {
+			legend: {
+				display: true,
+				labels: {
+					color: 'rgba(255,255,255,0.7)',
+					boxHeight: 1,
+				}
+			},
+			tooltip: {
+				intersect: false,
+			}
+		},
+		resizeDelay: 300,
+		responsive: false,
+		scales: {
+			yAxis: {
+				position: 'right',
+				ticks: {
+					color: '#fff',
+					callback: function(value, index, values) {
+                        return value + " €";
+                    }
+				},
+				grid: {
+					borderColor: '#fff',
+					color: 'rgba(255,255,255,0.4)',
+					borderDash:[5, 5] ,
+				}
+			}
+		},
+	}
+};
+
+const myChart = new Chart(ctx, config);
+</script>

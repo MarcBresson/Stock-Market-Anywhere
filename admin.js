@@ -1,7 +1,5 @@
-var interval_courant = 0;
-var interval_precedent = 0;
+var temps_precedent = 0;
 var ventes_totales = 0;
-var depenses_totales = 0;
 var dernieres_ventes = {};
 for(let biere in bieres){
 	dernieres_ventes[biere] = 0;
@@ -32,20 +30,21 @@ setInterval(function(){
 		document.getElementById('temps_restant_interval').innerHTML = secondes_avant_refresh + " s"
 	}
 
-	interval_courant = Math.ceil((Date.now()-debut_soiree)/1000/interval_temps) - 1
-	if(interval_courant > interval_precedent){ //on lance tous les calculs
-		interval_precedent = interval_courant;
+	if((Date.now()-temps_precedent)/1000 > interval_temps){ //on lance tous les calculs toutes les [interval_temps] secondes
+		temps_precedent = Date.now();
 		calcul_ventes();
 		
 		affichage_prix();
 		reset_ventes();
 
-		for(let biere in bieres){ //c est une fausse boucle pour avoir une clé du dictionnaire
-			indice_courant = bieres[biere]["prix"].length;
-			break;
-		}
 		if(krach_en_cours){
 			krach_indices.push(indice_courant);
+		}
+
+		for(let biere in bieres){ //c est une fausse boucle pour avoir une clé du dictionnaire
+			indice_courant = bieres[biere]["prix"].length;
+			console.log("indice courant : " + indice_courant)
+			break;
 		}
 
 		transfert_informations();
@@ -85,18 +84,20 @@ function calcul_prix(ventes_centre){
 		} else {
 			var nouveau_prix = 0;
 			var decalage = 0;
+			let compteur = 0;
 			for(var ii=nombre_prix_a_prendre_en_compte; ii>0; ii--){ //gere la volatilite des prix
 
-				while((indice_courant - ii - decalage) in krach_indices){ //on compte pas les prix pendant le krach
+				while(krach_indices.includes(indice_courant - ii - decalage)){ //on compte pas les prix pendant le krach
 					decalage += 1;
 				}
 
-				var prix_historique = (100 + ventes_centre[biere])/100 * bieres[biere]["prix"].at(- ii - decalage);
+				var prix_historique = (100 + ventes_centre[biere])/100 * bieres[biere]["prix"].at(indice_courant - ii - decalage);
 				if(prix_historique){//evite le undefined
 					nouveau_prix += prix_historique
+					compteur += 1
 				}
 			}
-			nouveau_prix = nouveau_prix/nombre_prix_a_prendre_en_compte;
+			nouveau_prix = nouveau_prix/compteur;
 		}
 
 		bieres[biere]["prix"].push(Math.round(nouveau_prix*100)/100);
@@ -124,5 +125,6 @@ function transfert_informations(){
 	localStorage.setItem("indice_courant", indice_courant);
 	localStorage.setItem("krach_indices", krach_indices);
 	localStorage.setItem("krach_en_cours", krach_en_cours);
-	localStorage.setItem("bieres", JSON.stringify("bieres"));
+	localStorage.setItem("nombre_bieres", nombre_bieres);
+	localStorage.setItem("bieres", JSON.stringify(bieres));
 }
