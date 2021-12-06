@@ -56,8 +56,6 @@ function calcul_ventes(){
 	const reducer = (previousValue, currentValue) => previousValue + currentValue;
 	let ventes_totales_interval = Object.values(dernieres_ventes).reduce(reducer)
 
-	var ventes_moyennes = ventes_totales_interval/nombre_bieres;
-
 	//gere la variation max en fonction du nombre de ventes totales. tend vers 80% en +inf. 10 ventes font une var max de 40%.
 	let variation_max = Math.atan(ventes_totales_interval/10);
 	variation_max = variation_max / (Math.PI/2) * 80;
@@ -67,6 +65,8 @@ function calcul_ventes(){
 	let extremum = Math.max(Math.max(maximum, -minimum), 1); //on evite la division par 0
 
 	var ventes_centre = {} //ventes recentrées en 0
+	
+	var ventes_moyennes = ventes_totales_interval/nombre_bieres;
 
 	for(let biere in dernieres_ventes){
 		ventes_centre[biere] = (dernieres_ventes[biere] - ventes_moyennes) / extremum * variation_max;

@@ -27,11 +27,16 @@
 	}
 	#moins_chere {
 		color:#fff;
-		float:right;
 		align-self: center;
 		width:100%;
 		margin-right:20px;
 		text-align: right;
+	}
+	#moins_chere .vertical {
+		writing-mode: tb-rl;
+		transform: rotate(180deg);
+		text-align: left;
+		font-size: 1.1em;
 	}
 	#moins_chere .hashtag_prix {
 		font-size: 70px;
@@ -87,6 +92,7 @@
 						Soirée bourse
 					</div>
 					<span id="moins_chere">
+						<span class="vertical">Les<br>moins<br>chères</span>
 						<span><span class="hashtag_prix">#1</span><span class="indice" id="numero_1"></span></span>
 						<span><span class="hashtag_prix">#2</span><span class="indice" id="numero_2"></span></span>
 						<span><span class="hashtag_prix">#3</span><span class="indice" id="numero_3"></span></span>
