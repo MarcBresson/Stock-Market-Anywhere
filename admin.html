@@ -98,7 +98,7 @@
 			dernieres_ventes[biere] += 1;
 			ventes_totales += 1;
 			
-			pertes += bieres[biere]["prix"].at(-1) - bieres[biere]["prix_achat"]
+			pertes += bieres[biere]["prix"].at(-1) - bieres[biere]["prix_initial"]
 			affichage_pertes.innerHTML = Math.round(pertes * 100)/100
 
 			let DOM_nbr_vente = this.querySelector(".nbr_ventes");
