@@ -5,12 +5,19 @@
 	html {
 		background : #0c0c0e;
 		font-family: system-ui;
+		color: #fff;
 	}
 	.conteneur {
 		padding : 20px;
 		border-radius: 12px;
+	}
+	body.dark .conteneur{
 		background-color: #202029;
 	}
+	body.red .conteneur{
+		background-color: #470a0a;
+	}
+
 	#banniere {
 		display: flex;
 		width:100%;
@@ -19,14 +26,12 @@
 	}
 	#titre {
 		font-size: 45px;
-		color: #fff;
 		font-weight: 700;
 		margin-left: 25px;
 		align-self: center;
 		white-space: nowrap;
 	}
 	#moins_chere {
-		color:#fff;
 		align-self: center;
 		width:100%;
 		margin-right:20px;
@@ -55,7 +60,6 @@
 	#afficheur_prix {
 		width:100%;
 		height:100%;
-		color: #fff;
 		border-collapse: collapse;
 		min-width:500px;
 	}
@@ -66,6 +70,10 @@
 
 	#afficheur_prix tr[croissance="positive"] .indice, #afficheur_prix tr[croissance="positive"] .prix, #afficheur_prix tr[croissance="positive"] .croissance {color : rgb(60, 151, 60);}
 	#afficheur_prix tr[croissance="negative"] .indice, #afficheur_prix tr[croissance="negative"] .prix, #afficheur_prix tr[croissance="negative"] .croissance {color : rgb(202, 58, 58);}
+
+	#afficheur_prix tr .prix {
+		font-weight: 700;
+	}
 
 	#afficheur_prix th.cercle, #afficheur_prix th.indice, #afficheur_prix th.prix, #afficheur_prix th.croissance {
 		width:fit-content;
@@ -78,7 +86,7 @@
 </style>
 
 <html>
-	<body style="margin:0">
+	<body style="margin:0" class="dark">
 		<div style="height:100vh;width:100vw;margin:0;overflow:hidden;display:flex; flex-flow: column;">
 			<div id="remerciements" style="position:absolute; color:rgba(255,255,255,0.6); top:0px; right:6px;">
 				développé par Marc Bresson

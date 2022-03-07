@@ -35,6 +35,8 @@ var bieres = {}
 var bieres_affichees = []
 var nom_bieres = []
 var nombre_bieres = 0
+
+
 setInterval(function(){
 	indice_courant = parseInt(localStorage.getItem("indice_courant"))
 	if (indice_courant > indice_precedent){
@@ -42,24 +44,37 @@ setInterval(function(){
 		krach_en_cours = localStorage.getItem("krach_en_cours");
 		bieres = JSON.parse(localStorage.getItem("bieres"))
 
+		//si on vient d'afficher le dashboard
 		if(bieres_affichees.length == 0){
 			console.log("initialisation ...")
 			nom_bieres = Object.keys(bieres);
-			myChart.data.labels = Array(Math.min(indice_courant-1,nombre_prix_a_afficher)).fill("")
+			myChart.data.labels = Array(Math.min(indice_courant-1,nombre_prix_a_afficher)).fill("") //gère les labels sur l'axe x
 			afficher_bieres();
 
 			generer_affichage_prix();
 
 			indice_precedent = indice_courant;
-		} else {
+		}
+		//si c est une mise a jour du dashboard
+		else {
 			ajout_data_bieres();
 			maj_affichage_prix();
 			indice_precedent += 1;
 		}
-		maj_affichage_moins_chere();
-	}
-}, 100)
 
+		maj_affichage_moins_chere();
+		
+		if(krach_en_cours == 'true'){
+			document.querySelector("body").classList.toggle("red", true)
+			document.querySelector("body").classList.toggle("dark", false)
+		} else {
+			document.querySelector("body").classList.toggle("dark", true)
+			document.querySelector("body").classList.toggle("red", false)
+		}
+	}
+}, 400)
+
+//on fait tourner les bieres affichées toutes les 15s
 setInterval(function(){
 	afficher_bieres()
 }, 15000)
@@ -127,7 +142,10 @@ function maj_affichage_prix(){
 		let croissance = Math.round(bieres[biere]["prix"].at(-1)/bieres[biere]["prix"].at(-2) * 100) - 100;
 		el_croissance.innerHTML = (croissance>0 ? "+" : "") + croissance + ' %';
 
-		el.setAttribute("croissance", croissance>=0 ? "positive" : "negative")
+		if(croissance == 0){el_class = ""}
+		else if(croissance > 0){el_class = "positive"}
+		else {el_class = "negative"}
+		el.setAttribute("croissance", el_class)
 	}
 }
 

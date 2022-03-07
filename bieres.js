@@ -12,7 +12,7 @@ if(localStorage.getItem("restaurer_sauvegarde")){
 
 if(recreate){
 	var bieres = {
-		"cuv" : {"prix_initial" : 1.5, "prix_krach" : 1.1, "volatilité" : 1, "nom_complet":"Cuvée des Trolls "},
+		"cuv" : {"prix_initial" : 1.5, "prix_krach" : 1.1, "volatilité" : 0.1, "nom_complet":"Cuvée des Trolls "},
 		"bar" : {"prix_initial" : 2.0, "prix_krach" : 1.5, "volatilité" : 1, "nom_complet":"Barbar"},
 		"cho" : {"prix_initial" : 2.0, "prix_krach" : 1.5, "volatilité" : 1, "nom_complet":"Chouffe"},
 		"duv" : {"prix_initial" : 1.5, "prix_krach" : 1.1, "volatilité" : 1, "nom_complet":"Duvel"},

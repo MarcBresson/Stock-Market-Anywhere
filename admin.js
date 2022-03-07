@@ -28,26 +28,26 @@ setInterval(function(){
 
 		let secondes_avant_refresh = Math.round((fin_soiree - Date.now())/1000)%interval_temps
 		document.getElementById('temps_restant_interval').innerHTML = secondes_avant_refresh + " s"
-	}
+	
+		if(secondes_avant_refresh == 0){ //on lance tous les calculs toutes les [interval_temps] secondes
+			temps_precedent = Date.now();
+			calcul_ventes();
 
-	if((Date.now()-temps_precedent)/1000 > interval_temps){ //on lance tous les calculs toutes les [interval_temps] secondes
-		temps_precedent = Date.now();
-		calcul_ventes();
-		
-		affichage_prix();
-		reset_ventes();
+			if(krach_en_cours){
+				krach_indices.push(indice_courant);
+			}
 
-		if(krach_en_cours){
-			krach_indices.push(indice_courant);
+			for(let biere in bieres){ //c est une fausse boucle pour avoir une clé du dictionnaire
+				indice_courant = bieres[biere]["prix"].length;
+				console.log("indice courant : " + indice_courant)
+				break;
+			}
+
+			transfert_informations();
+			
+			affichage_prix();
+			reset_ventes();
 		}
-
-		for(let biere in bieres){ //c est une fausse boucle pour avoir une clé du dictionnaire
-			indice_courant = bieres[biere]["prix"].length;
-			console.log("indice courant : " + indice_courant)
-			break;
-		}
-
-		transfert_informations();
 	}
 }, 1*1000);
 
