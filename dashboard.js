@@ -49,7 +49,7 @@ setInterval(function(){
 			console.log("initialisation ...")
 			nom_bieres = Object.keys(bieres);
 			generer_affichage_prix();
-			myChart.data.labels = Array(Math.min(indice_courant-1,nombre_prix_a_afficher)).fill("") //gère les labels sur l'axe x
+			myChart.data.labels = Array(Math.min(indice_courant,nombre_prix_a_afficher)).fill("") //gère les labels sur l'axe x
 			afficher_bieres();
 
 
@@ -94,7 +94,7 @@ function afficher_bieres(){
 
 function afficher_biere(nom_biere){
 	
-	let derniers_prix = bieres[nom_biere]["prix"].slice(-nombre_prix_a_afficher-1, -1)
+	let derniers_prix = bieres[nom_biere]["prix"].slice(-nombre_prix_a_afficher)
 	addDataset(myChart, bieres[nom_biere]["nom_complet"], derniers_prix, bieres[nom_biere]["couleur"])
 	bieres_affichees.push(nom_biere)
 }
@@ -104,7 +104,7 @@ function ajout_data_bieres(){
 		removeData(myChart);
 		myChart.data.labels.slice(0,1);
 	}
-	let options = {hour: "2-digit", minute: "2-digit", second: "2-digit"};
+	let options = {hour: "2-digit", minute: "2-digit"};
 	let maintenant = new Date();
 	myChart.data.labels.push(maintenant.toLocaleTimeString("fr-FR", options));
 
