@@ -5,7 +5,13 @@ for(let biere in bieres){
 	dernieres_ventes[biere] = 0;
 }
 
-if(recreate){ //s'il n'y a aucune sauvegarde
+
+if(localStorage.getItem("restaurer_sauvegarde")=="true"){
+	var indice_courant = localStorage.getItem("indice_courant");
+	var krach_en_cours = localStorage.getItem("krach_en_cours");
+	var krach_indices = JSON.parse(localStorage.getItem("krach_indices"));
+} else { //s'il n'y a aucune sauvegarde
+	console.log("nouvelle soirée")
 	var indice_courant = 0;
 	var krach_en_cours = false;
 	var krach_indices = [];
@@ -123,7 +129,7 @@ function reset_ventes(){
 
 function transfert_informations(){
 	localStorage.setItem("indice_courant", indice_courant);
-	localStorage.setItem("krach_indices", krach_indices);
+	localStorage.setItem("krach_indices", JSON.stringify(krach_indices));
 	localStorage.setItem("krach_en_cours", krach_en_cours);
 	localStorage.setItem("nombre_bieres", nombre_bieres);
 	localStorage.setItem("bieres", JSON.stringify(bieres));

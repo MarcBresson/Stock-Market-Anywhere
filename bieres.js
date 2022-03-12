@@ -1,10 +1,8 @@
 var recreate = true;
 
-if(localStorage.getItem("restaurer_sauvegarde")){
+if(localStorage.getItem("restaurer_sauvegarde")=="true"){
 	bieres = JSON.parse(localStorage.getItem("bieres"));
-	var indice_courant = localStorage.getItem("indice_courant");
-	var krach_en_cours = localStorage.getItem("krach_en_cours");
-	var krach_indices = localStorage.getItem("krach_indices");
+	var nombre_bieres = parseInt(localStorage.getItem("nombre_bieres"));
 	if(bieres !== null){
 		recreate = false;
 	}

@@ -48,10 +48,10 @@ setInterval(function(){
 		if(bieres_affichees.length == 0){
 			console.log("initialisation ...")
 			nom_bieres = Object.keys(bieres);
+			generer_affichage_prix();
 			myChart.data.labels = Array(Math.min(indice_courant-1,nombre_prix_a_afficher)).fill("") //gère les labels sur l'axe x
 			afficher_bieres();
 
-			generer_affichage_prix();
 
 			indice_precedent = indice_courant;
 		}
@@ -93,11 +93,10 @@ function afficher_bieres(){
 }
 
 function afficher_biere(nom_biere){
-	bieres_affichees.push(nom_biere)
 	
-	// console.log("nouvelle courbe affichee : " + nom_biere)
 	let derniers_prix = bieres[nom_biere]["prix"].slice(-nombre_prix_a_afficher-1, -1)
 	addDataset(myChart, bieres[nom_biere]["nom_complet"], derniers_prix, bieres[nom_biere]["couleur"])
+	bieres_affichees.push(nom_biere)
 }
 
 function ajout_data_bieres(){
