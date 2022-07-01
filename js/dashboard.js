@@ -31,33 +31,33 @@ function removeDataset(chart) {
 var indice_courant = 0
 var indice_precedent = 0
 var krach_en_cours = 0
-var bieres = {}
-var bieres_affichees = []
-var nom_bieres = []
-var nombre_bieres = 0
+var boissons = {}
+var boissons_affichees = []
+var nom_boissons = []
+var nombre_boissons = 0
 
 
 setInterval(function(){
 	indice_courant = parseInt(localStorage.getItem("indice_courant"))
 	if (indice_courant > indice_precedent){
-		nombre_bieres = parseInt(localStorage.getItem("nombre_bieres"));
+		nombre_boissons = parseInt(localStorage.getItem("nombre_boissons"));
 		krach_en_cours = localStorage.getItem("krach_en_cours");
-		bieres = JSON.parse(localStorage.getItem("bieres"))
+		boissons = JSON.parse(localStorage.getItem("boissons"))
 
 		//si on vient d'afficher le dashboard
-		if(bieres_affichees.length == 0){
+		if(boissons_affichees.length == 0){
 			console.log("initialisation ...")
-			nom_bieres = Object.keys(bieres);
+			nom_boissons = Object.keys(boissons);
 			generer_affichage_prix();
 			myChart.data.labels = Array(Math.min(indice_courant,nombre_prix_a_afficher)).fill("") //gère les labels sur l'axe x
-			afficher_bieres();
+			afficher_boissons();
 
 
 			indice_precedent = indice_courant;
 		}
 		//si c est une mise a jour du dashboard
 		else {
-			ajout_data_bieres();
+			ajout_data_boissons();
 			maj_affichage_prix();
 			indice_precedent += 1;
 		}
@@ -74,32 +74,32 @@ setInterval(function(){
 	}
 }, 400)
 
-//on fait tourner les bieres affichées toutes les 15s
+//on fait tourner les boissons affichées toutes les 15s
 setInterval(function(){
-	afficher_bieres()
+	afficher_boissons()
 }, 15000)
 
-var indice_biere_a_ajouter = 0
-function afficher_bieres(){
-	if(bieres_affichees.length >= quantite_courbes_a_afficher){
+var indice_boisson_a_ajouter = 0
+function afficher_boissons(){
+	if(boissons_affichees.length >= quantite_courbes_a_afficher){
 		removeDataset(myChart)
-		bieres_affichees.splice(0,1)
+		boissons_affichees.splice(0,1)
 	}
 
-	while(bieres_affichees.length < quantite_courbes_a_afficher){
-		afficher_biere(nom_bieres[indice_biere_a_ajouter])
-		indice_biere_a_ajouter = (indice_biere_a_ajouter + 1) % nombre_bieres
+	while(boissons_affichees.length < quantite_courbes_a_afficher){
+		afficher_boisson(nom_boissons[indice_boisson_a_ajouter])
+		indice_boisson_a_ajouter = (indice_boisson_a_ajouter + 1) % nombre_boissons
 	}
 }
 
-function afficher_biere(nom_biere){
+function afficher_boisson(nom_boisson){
 	
-	let derniers_prix = bieres[nom_biere]["prix"].slice(-nombre_prix_a_afficher)
-	addDataset(myChart, bieres[nom_biere]["nom_complet"], derniers_prix, bieres[nom_biere]["couleur"])
-	bieres_affichees.push(nom_biere)
+	let derniers_prix = boissons[nom_boisson]["prix"].slice(-nombre_prix_a_afficher)
+	addDataset(myChart, boissons[nom_boisson]["nom_complet"], derniers_prix, boissons[nom_boisson]["couleur"])
+	boissons_affichees.push(nom_boisson)
 }
 
-function ajout_data_bieres(){
+function ajout_data_boissons(){
 	if(myChart.data.labels.length>=nombre_prix_a_afficher){
 		removeData(myChart);
 		myChart.data.labels.slice(0,1);
@@ -108,10 +108,10 @@ function ajout_data_bieres(){
 	let maintenant = new Date();
 	myChart.data.labels.push(maintenant.toLocaleTimeString("fr-FR", options));
 
-	for(let biere in bieres){
-		let indice = bieres_affichees.indexOf(biere)
+	for(let boisson in boissons){
+		let indice = boissons_affichees.indexOf(boisson)
 		if(indice>-1){
-			addData(myChart, indice, bieres[biere]["prix"].at(-1))
+			addData(myChart, indice, boissons[boisson]["prix"].at(-1))
 		}
 	}
 	myChart.update();
@@ -119,26 +119,26 @@ function ajout_data_bieres(){
 
 function generer_affichage_prix(){
 	let tableau = document.querySelector('#afficheur_prix tbody');
-	for(let biere in bieres){
+	for(let boisson in boissons){
 		tableau.innerHTML += 
-			"<tr class='prix_" + biere + "'>" +
-				"<td style='color:" + bieres[biere]["couleur"] + "'>&#11044;</td>" +
-				"<td>" + bieres[biere]["nom_complet"] + "</td>" +
-				"<td class='indice'>" + biere + "</td>" +
-				"<td class='prix'>" + bieres[biere]["prix"].at(-1) + " &euro;</td>" +
+			"<tr class='prix_" + boisson + "'>" +
+				"<td style='color:" + boissons[boisson]["couleur"] + "'>&#11044;</td>" +
+				"<td>" + boissons[boisson]["nom_complet"] + "</td>" +
+				"<td class='indice'>" + boisson + "</td>" +
+				"<td class='prix'>" + boissons[boisson]["prix"].at(-1) + " &euro;</td>" +
 				"<td class='croissance'>0 %</td>" +
 			"</tr>"
 	}
 }
 
 function maj_affichage_prix(){
-	for(let biere in bieres){
-		let el =  document.querySelector('#afficheur_prix .prix_' + biere);
+	for(let boisson in boissons){
+		let el =  document.querySelector('#afficheur_prix .prix_' + boisson);
 		let el_prix = el.querySelector('.prix');
-		el_prix.innerHTML = bieres[biere]["prix"].at(-1) + " &euro;"
+		el_prix.innerHTML = boissons[boisson]["prix"].at(-1) + " &euro;"
 
 		let el_croissance = el.querySelector('.croissance');
-		let croissance = Math.round(bieres[biere]["prix"].at(-1)/bieres[biere]["prix"].at(-2) * 100) - 100;
+		let croissance = Math.round(boissons[boisson]["prix"].at(-1)/boissons[boisson]["prix"].at(-2) * 100) - 100;
 		el_croissance.innerHTML = (croissance>0 ? "+" : "") + croissance + ' %';
 
 		if(croissance == 0){el_class = ""}
@@ -150,9 +150,9 @@ function maj_affichage_prix(){
 
 function maj_affichage_moins_chere(){
 	var derniers_prix = []
-	for(let biere in bieres){
-		let prix = bieres[biere]["prix"].at(-1)
-		derniers_prix.push([bieres[biere]["nom_complet"], prix])
+	for(let boisson in boissons){
+		let prix = boissons[boisson]["prix"].at(-1)
+		derniers_prix.push([boissons[boisson]["nom_complet"], prix])
 	}
 	
 	derniers_prix.sort(function(first, second) {

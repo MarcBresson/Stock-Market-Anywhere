@@ -1,89 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.1/chart.min.js" integrity="sha512-O2fWHvFel3xjQSi9FyzKXWLTvnom+lOYR/AUEThL/fbP4hv1Lo5LCFCGuTXBRyKC4K4DJldg5kxptkgXAzUpvA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="dashboard.js"></script>
-
-<style>
-	html {
-		background : #0c0c0e;
-		font-family: system-ui;
-		color: #fff;
-	}
-	.conteneur {
-		padding : 20px;
-		border-radius: 12px;
-	}
-	body.dark .conteneur{
-		background-color: #202029;
-	}
-	body.red .conteneur{
-		background-color: #470a0a;
-	}
-
-	#banniere {
-		display: flex;
-		width:100%;
-		height:90px;
-		box-sizing: border-box;
-	}
-	#titre {
-		font-size: 45px;
-		font-weight: 700;
-		margin-left: 25px;
-		align-self: center;
-		white-space: nowrap;
-	}
-	#moins_chere {
-		align-self: center;
-		width:100%;
-		margin-right:20px;
-		text-align: right;
-	}
-	#moins_chere .vertical {
-		writing-mode: tb-rl;
-		transform: rotate(180deg);
-		text-align: left;
-		font-size: 1.1em;
-	}
-	#moins_chere .hashtag_prix {
-		font-size: 70px;
-		font-weight: 600;
-		color: #30ff70;
-		font-family: sans-serif;
-		margin-left:40px;
-		margin-right:5px;
-	}
-	#moins_chere .indice {
-		font-size: 25px;
-		font-family: sans-serif;
-		margin-right:10px;
-	}
-
-	#afficheur_prix {
-		width:100%;
-		height:100%;
-		border-collapse: collapse;
-		min-width:500px;
-	}
-	#afficheur_prix th {
-		width:33%;
-	}
-	#afficheur_prix tr:nth-child(even) {background: rgba(255,255,255,0.06);}
-
-	#afficheur_prix tr[croissance="positive"] .indice, #afficheur_prix tr[croissance="positive"] .prix, #afficheur_prix tr[croissance="positive"] .croissance {color : rgb(60, 151, 60);}
-	#afficheur_prix tr[croissance="negative"] .indice, #afficheur_prix tr[croissance="negative"] .prix, #afficheur_prix tr[croissance="negative"] .croissance {color : rgb(202, 58, 58);}
-
-	#afficheur_prix tr .prix {
-		font-weight: 700;
-	}
-
-	#afficheur_prix th.cercle, #afficheur_prix th.indice, #afficheur_prix th.prix, #afficheur_prix th.croissance {
-		width:fit-content;
-		margin-right:2px;
-	}
-
-	#afficheur_prix td.indice, #afficheur_prix td.prix, #afficheur_prix td.croissance {
-		text-align: center;
-	}
-</style>
+<script src="../js/dashboard.js"></script>
+<link href="../css/dashboard.css" rel="stylesheet">
 
 <html>
 	<body style="margin:0" class="dark">
@@ -94,7 +11,7 @@
 			<div class="conteneur" style="margin:20px 10px 0px 10px; padding:0px">
 				<div id="banniere">
 					<div id="logo" style="float:left;">
-						<img src="logo_bar.png" height="100%"/>
+						<img src="../parametres/logo.png" height="100%"/>
 					</div>
 					<div id="titre">
 						Soirée bourse

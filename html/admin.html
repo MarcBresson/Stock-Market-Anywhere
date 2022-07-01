@@ -1,0 +1,72 @@
+<link href="../css/admin.css" rel="stylesheet">
+
+<html>
+	<body>
+		<div id="boutons_boissons">
+			<div class="info">
+				<div class="limite_soiree"><span id="texte_temps_restant">temps avant le début de la soirée : </span><span id="temps_restant_soiree"></span></div>
+			</div>
+			<div class="info">
+				<div class="temps_interval">temps restant avant le recalcule des prix :<span id="temps_restant_interval"></span></div>
+			</div>
+			<div class="info">
+				<div class="affichage_pertes">gains :<span class="montant"></span> €</div>
+			</div>
+			<div></div><div></div>
+			<div id="bouton_krach">
+				Krach Boursier
+			</div>
+		</div>
+		<div id="infos_soiree">
+
+		</div>
+	</body>
+</html>
+
+<!-- Importation des paramètres -->
+<script src="../parametres/general.js"></script>
+<script src="../parametres/tarifs_boissons.js"></script>
+
+<script>
+	// construit l'interface admin automatiquement en fonction
+	// des paramètres et des tarifs des boissons.
+	boutons_boissons = document.getElementById("boutons_boissons");
+	for(let i in boissons){
+		bouton = document.createElement('div');
+		bouton.className = "bouton_vente";
+		bouton.setAttribute("nom_boisson", i)
+
+		bouton.innerHTML = 
+			"<div class='nom'>" + boissons[i]["nom_complet"] + "</div>" +
+			"<span>prix : <span class='prix'>" + boissons[i]["prix_initial"] + "</span>€</span><br>" +
+			"<span>ventes : <span class='nbr_ventes'>0</span></span>"
+		
+		boutons_boissons.appendChild(bouton)
+	}
+
+	var pertes = 0;
+	var affichage_pertes = document.querySelector('.affichage_pertes .montant')
+
+	var boutons_ventes_boissons = document.querySelectorAll('.bouton_vente')
+	boutons_ventes_boissons.forEach(function(bouton_vente) {
+		bouton_vente.addEventListener('click', function() {
+			let boisson = this.getAttribute('nom_boisson')
+			dernieres_ventes[boisson] += 1;
+			ventes_totales += 1;
+			
+			pertes += boissons[boisson]["prix"].at(-1) - boissons[boisson]["prix_initial"]
+			affichage_pertes.innerHTML = Math.round(pertes * 100)/100
+
+			let DOM_nbr_vente = this.querySelector(".nbr_ventes");
+			DOM_nbr_vente.innerText = parseInt(DOM_nbr_vente.innerText) + 1;
+		});
+	})
+
+	var bouton_krach = document.getElementById('bouton_krach')
+	bouton_krach.addEventListener('click', function() {
+		this.classList.toggle("active");
+		krach_en_cours = !krach_en_cours;
+	});
+</script>
+
+<script src="../js/admin.js"></script>
