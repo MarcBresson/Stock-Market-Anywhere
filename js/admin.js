@@ -17,7 +17,7 @@ if(localStorage.getItem("restaurer_sauvegarde")=="true"){
 }
 
 // ========= gestion du temps ===========
-// affiche le temps restant et lorsque la soirée début, cette partie gère
+// affiche le temps restant et lorsque la soirée débute, cette partie gère
 // les exécutions des différentes fonctions à intervalle de temps régulier.
 var avant_soiree = true;
 setInterval(function(){
@@ -68,15 +68,15 @@ setInterval(function(){
 
 
 function calcul_ventes(){
-	// compte le nombre total de boissons vendues sur l'interval de temps.
+	// compte le nombre total de boissons vendues sur l'intervalle de temps.
 	const reducer = (previousValue, currentValue) => previousValue + currentValue;
 	let ventes_totales_interval = Object.values(dernieres_ventes).reduce(reducer)
 	var ventes_moyennes = ventes_totales_interval/nombre_boissons;
 
-	// gere la variation max en fonction du nombre de ventes totales.
-	// tend vers 80% en +inf. 10 ventes toute boisson confondues
-	// vont faire une variation de 40%. Cette variation sera ensuite
-	// répartie entre toutes les boissons.
+	// gère la variation max en fonction du nombre de ventes totales.
+	// tend vers 80% quand le nombre de ventes tend vers +inf.
+	// 10 ventes toutes boissons confondues vont faire une variation de 40%.
+	// Cette variation sera ensuite répartie entre toutes les boissons.
 	let variation_max = Math.atan(ventes_totales_interval/10);
 	variation_max = variation_max / (Math.PI/2) * 80;
 
@@ -93,7 +93,7 @@ function calcul_ventes(){
 }
 
 function calcul_prix(ventes_centre){
-	// Répartie la variation des prix. Si une boisson a moins été vendu que
+	// Répartit la variation des prix. Si une boisson a moins été vendu que
 	// la moyenne, son prix diminuera. Si elle a plus été vendue, son
 	// prix augmentera.
 	for(let boisson in ventes_centre){
@@ -106,8 +106,8 @@ function calcul_prix(ventes_centre){
 			var cumule_prix = 0;
 			var decalage = 0;
 			let compteur = 0;
-			// gere la volatilite des prix. Si on veut qu'une boisson ait son prix
-			// lissé sur plusieurs intervalle, on peut lui définir une volatilité
+			// gère la volatilite des prix. Si on veut qu'une boisson ait son prix
+			// lissé sur plusieurs intervalles, on peut lui définir une volatilité
 			// dans le fichier de configuration.
 			for(var ii=nombre_prix_a_prendre_en_compte; ii>0; ii--){
 
@@ -147,7 +147,7 @@ function reset_ventes(){
 	}
 }
 
-// pour faire communiquer deux fenêtre chromes, on passe par le local storage.
+// pour faire communiquer deux fenêtre d'un navigateur, on passe par le local storage.
 function transfert_informations(){
 	localStorage.setItem("indice_courant", indice_courant);
 	localStorage.setItem("krach_indices", JSON.stringify(krach_indices));
