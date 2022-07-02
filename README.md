@@ -26,7 +26,7 @@ Vous devez rentrer la date et heure de la soirée dans le fichier `parametres_so
 
 Vous pouvez regler l'intervalle de temps entre chaque calcul à tout moments dans la soirée. Ouvrez les outils de développement de la page admin.html (F12 ou bien clic droit sur la page > inspecter > console) et tapez : `intervalle_temps = ...` avec une valeur en seconde.
 
-De même, il est possible de changer la " puissance " des variations en tapant au même endroit `multiplicateur_variation = coef_multiplicateur (=5 par défaut)`.
+De même, il est possible de changer la " puissance " des variations en tapant au même endroit `multiplicateur_variation = ... (=5 par défaut)`.
 
 /!\ n'actualisez surtout pas la page admin.html, car vos données seront ré-initialisées.
 
