@@ -1,0 +1,159 @@
+html {
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(26, 40, 49) 0.3%, rgb(9,15,22) 90.2% );
+    background-attachment: fixed;
+    font-family: system-ui;
+    margin: 0px;
+    color: #fff;
+    transition: background-image 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    scroll-behavior: smooth;
+    overflow: hidden;
+}
+html.active_krach {
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(49, 26, 26) 0.3%, rgb(22, 9, 9) 90.2% );
+}
+body {
+    margin: 0px;
+}
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.choices_buttons {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    overflow-y: hidden;
+    justify-content: center;
+}
+
+.choices_buttons > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-gap: 40px;
+}
+
+.choices_buttons > div div {
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 150px;
+    transform: scale(1);
+    transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor:pointer;
+}
+.choices_buttons > div div:hover {
+    transform: scale(1.05);
+}
+
+#stock_market {
+    overflow: auto;
+    height:100%;
+}
+
+#top_line {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+}
+
+#party_info {
+    background-color: rgba(255, 255, 255, 0.11);
+    padding: 17px 23px;
+    border-radius: 0px 10px 10px 0px;
+}
+
+#krach {
+    margin-left: auto;
+    margin-right: 0;
+    background-color: rgba(255, 91, 95, 0.31);
+    padding: 17px 23px;
+    border-radius: 10px 0px 0px 10px;
+    height: fit-content;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+html.active_krach #krach {
+    padding-right: 70px;
+    background-color: rgb(211, 27, 31);
+}
+
+#drinks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-gap: 15px;
+    max-width: 1200px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-bottom: 30px;
+}
+.drink {
+    padding: 10px;
+    border-radius: 10px;
+    width: 190px;
+    height: 115px;
+    display: grid;
+    align-content: space-between;
+    background-color: rgba(255, 255, 255, 0.11);
+    transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+.drink .name .trigram {
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.drink .name .full_name {
+    text-transform: capitalize;
+}
+.drink .infos {
+    margin-top:15px;
+}
+
+.drink .infos .prices {
+    display: flex;
+    flex-wrap: nowrap;
+    line-height: 1;
+}
+.drink .infos .prices > span {
+    font-size: 25px;
+}
+.drink .infos .prices > div {
+    display: block;
+    margin-left: 10px;
+    font-size: 12px;
+}
+.drink .infos .prices > div .variation {
+    line-height: 1.1;
+}
+.drink .infos .prices > div .variation[sign="positive"] {
+    color: #8ded39;
+}
+.drink .infos .prices > div .variation[sign="negative"] {
+    color: #f02329;
+}
+.drink .infos .add_sale {
+    position: absolute;
+    font-weight: 900;
+    color: #000;
+    padding: 10px;
+    line-height: 1;
+    border-radius: 7px 7px 0px 0px;
+    right: 15px;
+    bottom: -33px;
+    height: 25px;
+    transition: bottom 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.drink:hover .add_sale {
+    bottom: 0px;
+}
+
+.drink:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}

@@ -1,0 +1,122 @@
+<link href="../css/sales.css" rel="stylesheet">
+
+<html>
+	<body>
+		<div id="what_to_do_with_data" class="choices_buttons" style="display: none;">
+			<h1>You seem to have a party going...</h1>
+			<div>
+				<div id="resume" style="background-image: linear-gradient( 111.1deg, rgba(0,40,70,1) -4.8%, rgb(115 228 255) 82.7%, rgb(123 255 183) 97.2% );">
+					<h2>Resume the party</h2>
+					<p>So much fun right now, I want it to never stop.</p>
+				</div>
+				<div id="download" style="background-image: linear-gradient( 18deg, rgba(0,40,70,1) -4.8%, rgb(115 228 255) 82.7%, rgb(123 255 183) 97.2% );">
+					<h2>Download data</h2>
+					<p>oh, you data scientist. Gotcha, you can create your best data viz with every data point.</p>
+				</div>
+				<div id="reset" style="background-image: linear-gradient( 271deg, rgb(4, 55, 94) -4.8%, rgb(83, 209, 241) 82.7%, rgb(123, 255, 242) 97.2% );">
+					<h2>Reset</h2>
+					<p>Sometimes, you need to go back to a clean board to achieve beter. Good luck !</p>
+				</div>
+			</div>
+		</div>
+		<div id="start_the_party" class="choices_buttons" style="display: none;">
+			<h1>Hello you !</h1>
+			<div>
+				<div id="program_start" style="background-image: linear-gradient( 237deg,  rgb(0 40 70) -4.8%, rgb(255 115 115 / 52%) 72.7%, rgba(255,175,123,1) 100% )">
+					<h2>Program the party</h2>
+					<p>You want to have a beautiful countdown ? This is the way !</p>
+				</div>
+				<div id="starts_now" style="background-image: linear-gradient( 111.1deg,  rgba(0,40,70,1) -4.8%, rgba(255,115,115,1) 82.7%, rgba(255,175,123,1) 97.2% );">
+					<h2>Starts now !</h2>
+					<p>You seem to be in a hurry. Go go go, Let the party begin !</p>
+				</div>
+			</div>
+		</div>
+		<div id="stock_market" style="display: none;">
+			<div id="top_line">
+				<div id="party_info">
+					<div>new prices in <span id="remaining_time_til_new_prices"></span></div>
+					<div>end of the party in <span id="remaining_time_til_end"></span></div>
+				</div>
+				<div id="krach">
+					Krach
+				</div>
+			</div>
+			<div id="drinks">
+				<template>
+					<div class="drink" id="trigram">
+						<div class="name"><span class="trigram">MAR</span> - aux canards dans l'étang</div>
+						<div class="infos">
+							<div class="prices">
+								<span class="actual_price">3€45</span>
+								<div>
+									<div class="initial_price">2€32</div>
+									<div class="variation">+24%</div>
+								</div>
+							</div>
+							<div class="add_sale">+1</div>
+						</div>
+					</div>
+				</template>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script src="../js/data.js"></script>
+<script src="../js/tabs.js"></script>
+
+<script src="../parametres/default_prices.js"></script>
+<script src="../js/indexes.js"></script>
+<script src="../js/sales.js"></script>
+<script src="../js/prices.js"></script>
+<script src="../js/general.js"></script>
+<script src="../js/sale_button.js"></script>
+
+<script>
+// construit l'interface admin automatiquement en fonction
+// des paramètres et des tarifs des boissons.
+let el_drinks = document.getElementById("drinks");
+let sale_buttons = {}
+for(let i in default_prices){
+	trigram = i
+	fullname = default_prices[i]["nom_complet"]
+	initial_price = default_prices[i]["prix_initial"]
+	colour = default_prices[i]["colour"]
+
+	bouton = new SaleButton(trigram, fullname, initial_price, colour)
+	sale_buttons[trigram] = bouton
+
+	el_drinks.appendChild(bouton.html())
+}
+
+let buttons_sale_drink = document.querySelectorAll('.drink')
+buttons_sale_drink.forEach(function(button_sale) {
+	button_sale.addEventListener('click', function() {
+		let trigram = this.getAttribute('trigram')
+		sales.new(trigram)
+	});
+})
+</script>
+
+<script>
+	html_el = document.getElementsByTagName("html")[0]
+	krach_button = document.getElementById("krach")
+	krach_button.addEventListener('click', () => {
+        if(indexes.is_krach()){
+            new_interval(false)
+			html_el.classList.remove("active_krach")
+        } else {
+            new_interval(true)
+			html_el.classList.add("active_krach")
+    	}
+	})
+</script>
+
+<script>
+function update_sales(new_price){
+	for(let drink in new_price){
+		sale_buttons[drink].update_dom(new_price[drink])
+	}
+}
+</script>
