@@ -1,0 +1,109 @@
+<html>
+	<body>
+        <div id="minuteur"></div>
+    </body>
+</html>
+
+<style>
+html {
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(26, 40, 49) 0.3%, rgb(9,15,22) 90.2% );
+    background-attachment: fixed;
+    font-family: system-ui;
+    margin: 0px;
+    color: #fff;
+    overflow: hidden;
+}
+body {
+    margin: 0px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+.bar {
+    width: 30px;
+    transition: height 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 7px 7px 0px 0px;
+    opacity: 1;
+    height: 0px;
+    transition: height 2s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.grow {
+    height: 0px !important;
+    opacity: 0;
+}
+#minuteur {
+    position:absolute;
+    bottom: 50%;
+    font-size: 250px;
+    font-weight: bolder;
+}
+</style>
+
+<script>
+bars = []
+
+body_el = document.getElementsByTagName("body")[0]
+class Bar{
+    dom
+
+    append_html(){
+        let bar = document.createElement('div');
+		bar.id = this.pos;
+		bar.className = "bar";
+
+        body_el.append(bar)
+
+        this.dom = bar
+    }
+
+    update(new_height, new_color){
+        this.dom.style.height = new_height
+        this.dom.style.backgroundColor = new_color
+    }
+}
+
+for(let i = 0; i < 30; i ++){
+    let bar = new Bar()
+    bar.append_html()
+
+    bar.update(bar_height(i))
+
+    bars.push(bar)
+}
+
+function bar_height(pos, amplitude = 10){
+    x = range(pos+0.5, 0, 30, -3 * Math.PI / 2, Math.PI / 2)
+    return (Math.sin(x) + 1.1) * amplitude + getRandomIntInclusive(-10, 10) * 3
+}
+
+function range(val, in_min, in_max, out_min, out_max){
+    return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min +1)) + min;
+}
+
+var i = 0
+var hue = 0
+var minuteur_el = document.getElementById("minuteur")
+countdown = setInterval(() => {
+    let seconds_til_start = (Date.parse("2022-09-15T14:19:00") - Date.now()) / 1000
+    minuteur_el.innerText = Math.ceil(seconds_til_start)
+
+    if(seconds_til_start < 0 && i == 29){
+        clearInterval(countdown)
+        for(var index in bars){
+            bars[index].dom.classList.add("grow")
+        }
+    }
+
+    let amplitude = (Math.exp(- seconds_til_start / 40 + 3) + 1) * 20
+
+    bars[i].update(bar_height(i, amplitude), "hsl("+hue+", 90%, 50%)")
+    i = (i + 1) % 30
+    hue = (hue + 1/2) % 360
+}, 30)
+</script>
