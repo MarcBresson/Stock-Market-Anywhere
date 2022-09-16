@@ -1,6 +1,9 @@
 <html>
 	<body>
-        <div id="minuteur"></div>
+        <div id="countdown">
+            <span id="countdown_value"></span>
+            <span id="countdown_unit"></span>
+        </div>
     </body>
 </html>
 
@@ -25,17 +28,36 @@ body {
     border-radius: 7px 7px 0px 0px;
     opacity: 1;
     height: 0px;
-    transition: height 2s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: height 3s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .grow {
-    height: 0px !important;
-    opacity: 0;
+    animation-duration: 2s;
+    animation-name: grow_out;
+    animation-fill-mode: forwards;
 }
-#minuteur {
+@keyframes grow_out {
+    40% {
+        opacity: 1;
+    }
+    60% {
+        height: 1600px;
+    }
+    to {
+        opacity: 0;
+        height: 1600px;
+    }
+}
+#countdown {
     position:absolute;
     bottom: 50%;
+}
+#countdown #countdown_value {
     font-size: 250px;
     font-weight: bolder;
+}
+#countdown #countdown_unit {
+    font-size: 50px;
+    font-weight: 600;
 }
 </style>
 
@@ -62,7 +84,11 @@ class Bar{
     }
 }
 
-for(let i = 0; i < 30; i ++){
+var number_of_bars = Math.ceil(window.innerWidth / (30 * 2))
+let max_bar_height = bar_height(0, compute_amplitude(0, 1), 0) + 1
+var amplifier = Math.ceil(window.innerHeight / max_bar_height)
+
+for(let i = 0; i < number_of_bars; i ++){
     let bar = new Bar()
     bar.append_html()
 
@@ -71,39 +97,63 @@ for(let i = 0; i < 30; i ++){
     bars.push(bar)
 }
 
-function bar_height(pos, amplitude = 10){
-    x = range(pos+0.5, 0, 30, -3 * Math.PI / 2, Math.PI / 2)
-    return (Math.sin(x) + 1.1) * amplitude + getRandomIntInclusive(-10, 10) * 3
+function bar_height(pos, amplitude, random_amplitude = 30){
+    x = range(pos+0.5, 0, number_of_bars, -3 * Math.PI / 2, Math.PI / 2)
+    return (Math.sin(x) + 1.1) * amplitude + getRandomInclusive(-1, 0) * random_amplitude
+}
+function compute_amplitude(x, amplifier){
+    return (Math.exp(-x/40 + 3) + 1) * amplifier
 }
 
 function range(val, in_min, in_max, out_min, out_max){
     return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-function getRandomIntInclusive(min, max) {
+function getRandomInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min +1)) + min;
+  return Math.random() * (max - min +1) + min;
 }
 
 var i = 0
 var hue = 0
-var minuteur_el = document.getElementById("minuteur")
 countdown = setInterval(() => {
-    let seconds_til_start = (Date.parse("2022-09-15T14:19:00") - Date.now()) / 1000
-    minuteur_el.innerText = Math.ceil(seconds_til_start)
+    let seconds_til_start = (Date.parse("2022-09-16T11:20:00") - Date.now()) / 1000
+    display_countdown(seconds_til_start)
 
-    if(seconds_til_start < 0 && i == 29){
-        clearInterval(countdown)
-        for(var index in bars){
-            bars[index].dom.classList.add("grow")
-        }
+    if(seconds_til_start < 0 && i == number_of_bars-1){
+        terminate_countdown()
     }
 
-    let amplitude = (Math.exp(- seconds_til_start / 40 + 3) + 1) * 20
-
+    let amplitude = compute_amplitude(seconds_til_start, amplifier)
     bars[i].update(bar_height(i, amplitude), "hsl("+hue+", 90%, 50%)")
-    i = (i + 1) % 30
+
+    i = (i + 1) % number_of_bars
+
     hue = (hue + 1/2) % 360
-}, 30)
+}, 1000/number_of_bars)
+
+function terminate_countdown(){
+    clearInterval(countdown)
+
+    for(var index in bars){
+        bars[index].dom.classList.add("grow") // the outro transition
+    }
+}
+
+var countdown_el = document.getElementById("countdown_value")
+var countdown_unit_el = document.getElementById("countdown_unit")
+function display_countdown(seconds_til_start){
+    units = ["s", "min", "h", "days", "weeks"]
+    limit_units = [60, 60, 24, 7]
+    unit_index = 0
+    time_til_start = seconds_til_start
+
+    while(time_til_start > limit_units[unit_index] * 2){
+        time_til_start = time_til_start / limit_units[unit_index]
+        unit_index ++
+    }
+    countdown_el.innerText = Math.ceil(time_til_start)
+    countdown_unit_el.innerText =units[unit_index]
+}
 </script>
