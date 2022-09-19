@@ -11,8 +11,14 @@ function data_upload(variable_name, variable_value){
 	localStorage.setItem(variable_name, variable_value)
 }
 
-function data_get_information(variable_name){
-    return JSON.parse(localStorage.getItem(variable_name))
+function data_get_information(variable_name, type = 'Object'){
+	let value = localStorage.getItem(variable_name)
+
+	if(type == 'Object'){
+		return JSON.parse(value)
+	} else if(type == 'str'){
+		return value
+	}
 }
 
 function get_last_update(variable_name){

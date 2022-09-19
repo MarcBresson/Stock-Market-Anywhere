@@ -1,6 +1,6 @@
 let countdown_end = data_get_information("countdown_end")
 var date_countdown_end = new Date(parseInt(countdown_end))
-var message = data_get_information("countdown_message")
+var message = data_get_information("countdown_message", 'str')
 document.getElementById("message").innerHTML = message
 
 var body_el = document.getElementsByTagName("body")[0]
@@ -69,11 +69,7 @@ function terminate_countdown(){
         bars[index].dom.classList.add("grow") // the outro transition
     }
 
-    if(window.opener !== null){
-        window.opener.start()
-
-        setTimeout(() => {
-            window.location.href = 'dashboard.html';
-        }, 1000)
-    }
+    setTimeout(() => {
+        window.location.assign('dashboard.html')
+    }, 1000)
 }
