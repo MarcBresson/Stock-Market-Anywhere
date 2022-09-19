@@ -112,7 +112,7 @@ class Prices{
         return last_prices
     }
     
-    compute_new_prices(new_sales, indexes){
+    compute_new_prices(new_sales, indexes, default_prices){
         let last_non_krach_party_index = indexes.last_non_krach_party_index()
         let milliseconds_since_last_update = Date.now() - last_non_krach_party_index[0]
         
@@ -122,8 +122,16 @@ class Prices{
     
         let new_prices = {}
         for(let drink in this.price_history){
-            new_prices[drink] = (former_prices[drink]
-                                * (1 + price_var[drink] / 100))
+            let min_price = 0
+            if("min_price" in default_prices[drink]){
+                min_price = default_prices[drink]["min_price"]
+            }
+            
+            new_prices[drink] = Math.max(
+                                    (former_prices[drink]
+                                    * (1 + price_var[drink] / 100))
+                                    , min_price
+                                )
         }
     
         return new_prices

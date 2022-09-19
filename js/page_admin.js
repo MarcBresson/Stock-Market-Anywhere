@@ -2,15 +2,14 @@ var prices = new Prices()
 var indexes = new Indexes()
 var sales = new Sales()
 
-// check if data exists => resume, download, reset
-function resume(){
 
-}
-
-// check if it is before the party => program a start / starts now
 function starts(){
     indexes.new(false)
     prices.set_default()
+
+    buttons_sale_drink.forEach(function(button_sale) {
+        button_sale.removeAttribute("disabled")
+    })
 
     refresh_seconds = 10
     x = setInterval(() => {
@@ -33,10 +32,11 @@ function new_interval(set_krach = null){
         new_sales_start = indexes.last_non_krach_party_index()[0]
         new_sales = sales.since(new_sales_start)
     
-        new_prices = prices.compute_new_prices(new_sales, indexes)
+        new_prices = prices.compute_new_prices(new_sales, indexes, default_prices)
         prices.append(new_prices)
     }
 
+    data_upload("prices", prices)
     update_sales(prices.last(indexes))
 }
 
@@ -65,8 +65,15 @@ buttons_sale_drink.forEach(function(button_sale) {
 	});
 })
 
+function update_sales(new_price){
+	for(let drink in new_price){
+		sale_buttons[drink].update_dom(new_price[drink])
+	}
+}
 
 
+
+// handles krach
 html_el = document.getElementsByTagName("html")[0]
 krach_button = document.getElementById("krach")
 krach_button.addEventListener('click', () => {
@@ -78,11 +85,3 @@ krach_button.addEventListener('click', () => {
         html_el.classList.add("active_krach")
     }
 })
-
-
-
-function update_sales(new_price){
-	for(let drink in new_price){
-		sale_buttons[drink].update_dom(new_price[drink])
-	}
-}
