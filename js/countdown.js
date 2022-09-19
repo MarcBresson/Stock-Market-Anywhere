@@ -1,5 +1,5 @@
 class Countdown{
-    constructor(datetime, onFinish){
+    constructor(datetime, onFinish = ()=>{}){
         this.datetime = datetime
 
         if(typeof onFinish == "function"){
@@ -12,7 +12,9 @@ class Countdown{
     check(){
         if(this.seconds_remaining() <= 0){
             this.onFinish()
+            return true
         }
+        return false
     }
 
     seconds_remaining(){

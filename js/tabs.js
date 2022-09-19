@@ -25,7 +25,6 @@ function go_to_stock_market(){
         behavior: 'smooth',
         block: 'start'
     })
-    starts()
     setTimeout(() => {
         what_to_do_with_data.style.display = "none"
         start_the_party.style.display = "none"
@@ -50,22 +49,32 @@ document.getElementById("schedule_start").addEventListener("click", () => {
 
 document.getElementById("starts_now").addEventListener("click", () => {
     go_to_stock_market()
+    starts()
+    open_dashboard()
 })
 
-var datetime_start
-var datetime_end
-var message
+var countdown_til_start
+var countdown_til_end
 document.getElementById("validate_schedule").addEventListener("click", () => {
     let extraction = extract_value_from_schedule()
-    datetime_start = extraction[0]
-    datetime_end = extraction[1]
-    message = extraction[2]
+    let datetime_start = extraction[0]
+    let datetime_end = extraction[1]
+    let message = extraction[2]
 
     data_upload("countdown_end", datetime_start)
     data_upload("countdown_message", message)
 
+    countdown_til_start = new Countdown(datetime_start, starts)
+    countdown_til_end = new Countdown(datetime_end)
+
     open_countdown()
     go_to_stock_market()
+
+    interval_countdown_start = setInterval(() => {
+        if(countdown_til_start.check()){
+            clearInterval(interval_countdown_start)
+        }
+    }, (200));
 })
 
 function extract_value_from_schedule(){

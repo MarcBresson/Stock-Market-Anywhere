@@ -4,6 +4,18 @@ class Indexes{
     //     [time_start, time_end, is_krach],
     //     [time_start, time_end, is_krach],
     // ]
+    constructor(refresh_period = 60){
+        this.refresh_period = refresh_period
+    }
+
+    is_time_for_next(){
+        return this.time_until_next() < 0
+    }
+
+    time_until_next(){
+        let milliseconds_remaining = this.last()[0] + refresh_period * 1000 - Date.now()
+        return Math.ceil(milliseconds_remaining / 1000)
+    }
 
     new(set_krach = null){
         if(this.party_index.length > 0){

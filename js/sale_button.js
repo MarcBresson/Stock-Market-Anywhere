@@ -12,6 +12,7 @@ class SaleButton{
 		bouton.id = this.trigram;
 		bouton.className = "drink";
 		bouton.setAttribute("trigram", trigram)
+		bouton.setAttribute("disabled", "")
 
 		bouton.innerHTML = 
 			"<div class='name'><span class='trigram'>" + this.trigram + "</span> - <span class='full_name'>" + this.fullname + "</span></div>" +

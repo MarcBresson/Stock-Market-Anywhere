@@ -1,5 +1,6 @@
 var prices = new Prices()
-var indexes = new Indexes()
+refresh_period = 60
+var indexes = new Indexes(refresh_period)
 var sales = new Sales()
 
 
@@ -11,10 +12,14 @@ function starts(){
         button_sale.removeAttribute("disabled")
     })
 
-    refresh_seconds = 10
     x = setInterval(() => {
-        if(indexes.last()[0] + refresh_seconds * 1000 < Date.now()){
+        if(indexes.is_time_for_next()){
             new_interval()
+        }
+
+        update_countdown_new_price()
+        if(countdown_til_end){
+            update_countdown_party_end()
         }
     }, (1000));
 }
@@ -69,6 +74,11 @@ function update_sales(new_price){
 	for(let drink in new_price){
 		sale_buttons[drink].update_dom(new_price[drink])
 	}
+}
+
+countdown_new_price_el = document.getElementById("remaining_time_til_new_prices")
+function update_countdown_new_price(){
+    countdown_new_price_el.innerText = indexes.time_until_next()
 }
 
 
