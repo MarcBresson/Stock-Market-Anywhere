@@ -19,7 +19,7 @@ a {
     text-decoration: inherit;
 }
 
-.choices_buttons {
+.choices_buttons, .scheduler_settings {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -28,7 +28,7 @@ a {
     justify-content: center;
 }
 
-.choices_buttons > div {
+.choices_buttons > div, .scheduler_settings > div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -43,11 +43,16 @@ a {
     transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor:pointer;
 }
-.choices_buttons > div div:hover {
+.scheduler_settings > div div {
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 150px;
+}
+.choices_buttons > div div.zoom:hover {
     transform: scale(1.05);
 }
 
-#stock_market {
+#scheduler, #stock_market {
     overflow: auto;
     height:100%;
 }
@@ -156,4 +161,38 @@ html.active_krach #krach {
 
 .drink:hover {
     background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+input[type="date"], input[type="time"] {
+    background-color: rgba(255, 255, 255, 0.11);
+    border:none;
+    color: inherit;
+    font-size: large;
+    border-radius: 5px;
+    cursor: pointer;
+    padding:4px 6px;
+}
+
+/* make the native arrow invisible and stretch it over the whole field so you can click anywhere in the input field to trigger the native datepicker*/
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23ffffff" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+    padding-right: 5px !important;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 490 490"><path fill="%23ffffff" d="M245,0C109.5,0,0,109.5,0,245s109.5,245,245,245s245-109.5,245-245S380.5,0,245,0z M245,449.3c-112.6,0-204.3-91.7-204.3-204.3S132.4,40.7,245,40.7S449.3,132.4,449.3,245S357.6,449.3,245,449.3z"/><path fill="%23ffffff" d="M290.9,224.1h-25v-95.9c0-11.5-9.4-20.9-20.9-20.9s-20.9,9.4-20.9,20.9V245c0,11.5,9.4,20.9,20.9,20.9h45.9c11.5,0,20.9-9.4,20.9-20.9S302.3,224.1,290.9,224.1z"/></svg>');
+    padding-right: 5px !important;
+}
+
+#schedule_message {
+    max-width: inherit;
+}
+#schedule_message input {
+    background: rgba(255, 255, 255, 0.11);
+    border: none;
+    font-size: large;
+    border-radius: 5px;
+    padding:4px 6px;
+    color: inherit;
 }

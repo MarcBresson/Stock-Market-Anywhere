@@ -1,0 +1,112 @@
+<head>
+	<meta http-equiv="Content-Security-Policy" content="child-src file: *; connect-src file: *; frame-src file: *; worker-src file: *">
+	<meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">
+	<meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
+</head>
+
+<link href="../css/admin.css" rel="stylesheet">
+
+<html>
+	<body>
+		<div id="what_to_do_with_data" class="choices_buttons" style="display: none;">
+			<h1>You seem to have a party going...</h1>
+			<div>
+				<div id="resume" class="zoom" style="background-image: linear-gradient( 111.1deg, rgba(0,40,70,1) -4.8%, rgb(115 228 255) 82.7%, rgb(123 255 183) 97.2% );">
+					<h2>Resume the party</h2>
+					<p>So much fun right now, I want it to never stop.</p>
+				</div>
+				<div id="download" class="zoom" style="background-image: linear-gradient( 18deg, rgba(0,40,70,1) -4.8%, rgb(115 228 255) 82.7%, rgb(123 255 183) 97.2% );">
+					<h2>Download data</h2>
+					<p>oh, you data scientist. Gotcha, you can create your best data viz with every data point.</p>
+				</div>
+				<div id="reset" class="zoom" style="background-image: linear-gradient( 271deg, rgb(4, 55, 94) -4.8%, rgb(83, 209, 241) 82.7%, rgb(123, 255, 242) 97.2% );">
+					<h2>Reset</h2>
+					<p>Sometimes, you need to go back to a clean board to achieve beter. Good luck !</p>
+				</div>
+			</div>
+		</div>
+		<div id="start_the_party" class="choices_buttons" style="display: none;">
+			<h1>Hello you !</h1>
+			<div>
+				<div id="schedule_start" class="zoom" style="background-image: linear-gradient( 237deg,  rgb(0 40 70) -4.8%, rgb(255 115 115 / 52%) 72.7%, rgba(255,175,123,1) 100% )">
+					<h2>Schedule the party</h2>
+					<p>You want to have a beautiful countdown ? This is the way !</p>
+				</div>
+				<div id="starts_now" class="zoom" style="background-image: linear-gradient( 111.1deg,  rgba(0,40,70,1) -4.8%, rgba(255,115,115,1) 82.7%, rgba(255,175,123,1) 97.2% );">
+					<h2>Starts now !</h2>
+					<p>You seem to be in a hurry. Go go go, Let the party begin !</p>
+				</div>
+			</div>
+		</div>
+		<div id="scheduler" class="scheduler_settings" style="display: none;">
+			<h1>Tell us when you want to start</h1>
+			<div>
+				<div id="schedule_start" style="background-image: linear-gradient(92deg, #5a5ca3  0%, #ed8ad2 100%);">
+					<h2>Start</h2>
+					<input type="date" class="datepicker-input" required>
+					<p></p>
+					<input type="time" class="datepicker-input" required>
+					<p></p>
+				</div>
+				<div id="schedule_end" style="background-image: linear-gradient(238deg, #ae61c6 0%, #f88fc5 100%);">
+					<h2>End</h2>
+					<input type="date" class="datepicker-input" required>
+					<p></p>
+					<input type="time" class="datepicker-input" required>
+					<p></p>
+				</div>
+			</div>
+			<h1>A little word for the countdown ?</h1>
+			<div>
+				<div id="schedule_message" style="background-image: linear-gradient(to top, #7560a7 0%, #df6cbe 100%);">
+					<h2>Message</h2>
+					<input type="text">
+					<p></p>
+				</div>
+			</div>
+			<div style="margin-top: 40px;">
+				<div id="validate_schedule" style="background-image: linear-gradient(to bottom, #775ca9 0%, #8970e2 100%); cursor: pointer; font-weight: 700; font-size: large;">
+					Validate
+				</div>
+			</div>
+		</div>
+		<div id="stock_market" style="display: none;">
+			<div id="top_line">
+				<div id="party_info">
+					<div>new prices in <span id="remaining_time_til_new_prices"></span></div>
+					<div>end of the party in <span id="remaining_time_til_end"></span></div>
+				</div>
+				<div id="krach">
+					Krach
+				</div>
+			</div>
+			<div id="drinks">
+				<template>
+					<div class="drink" id="trigram">
+						<div class="name"><span class="trigram">MAR</span> - aux canards dans l'étang</div>
+						<div class="infos">
+							<div class="prices">
+								<span class="actual_price">3€45</span>
+								<div>
+									<div class="initial_price">2€32</div>
+									<div class="variation">+24%</div>
+								</div>
+							</div>
+							<div class="add_sale">+1</div>
+						</div>
+					</div>
+				</template>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script src="../js/data.js"></script>
+<script src="../js/tabs.js"></script>
+
+<script src="../parametres/default_prices.js"></script>
+<script src="../js/indexes.js"></script>
+<script src="../js/sales.js"></script>
+<script src="../js/prices.js"></script>
+<script src="../js/sale_button.js"></script>
+<script src="../js/page_admin.js"></script>
