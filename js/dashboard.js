@@ -95,7 +95,7 @@ function afficher_boissons(){
 function afficher_boisson(nom_boisson){
 	
 	let derniers_prix = boissons[nom_boisson]["prix"].slice(-nombre_prix_a_afficher)
-	addDataset(myChart, boissons[nom_boisson]["nom_complet"], derniers_prix, boissons[nom_boisson]["couleur"])
+	addDataset(myChart, boissons[nom_boisson]["nom_complet"], nom_boisson, derniers_prix, boissons[nom_boisson]["couleur"])
 	boissons_affichees.push(nom_boisson)
 }
 

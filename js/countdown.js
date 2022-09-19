@@ -47,6 +47,38 @@ class Countdown{
     }
 }
 
+class Minuterie{
+    constructor(period, onValid = ()=>{}){
+        this.period = period
+
+        this.next_check = 0
+
+        if(typeof onValid == "function"){
+            this.onValid = onValid
+        } else {
+            throw 'onValid must be a function'
+        }
+    }
+
+    check(){
+        if(this.seconds_remaining() <= 0){
+            this.reset()
+            this.onValid()
+            return true
+        }
+        return false
+    }
+
+    reset(){
+        this.next_check = Date.now() + this.period * 1000
+    }
+
+    seconds_remaining(){
+        return Math.ceil((this.next_check - Date.now()) / 1000)
+    }
+}
+
+
 function clean_time(time, units){
     time = time.reverse()
 

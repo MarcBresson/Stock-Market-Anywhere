@@ -2,8 +2,8 @@
 // Sales is "imported" from the admin.html file
 
 class Prices{
-    price_history = {}
-    // price_history structure :
+    prices_history = {}
+    // prices_history structure :
     // {
     //      "tor": [3.2, 4, 5],
     //      "bar": [1.5, 1.34, 1.7],
@@ -12,9 +12,9 @@ class Prices{
     coef_multiplicator = 100
 
     append(prices_dict){
-        for(let drink in this.price_history){
+        for(let drink in this.prices_history){
             if(drink in prices_dict){
-                this.price_history[drink].push(prices_dict[drink])
+                this.prices_history[drink].push(prices_dict[drink])
             }
         }
 
@@ -34,7 +34,7 @@ class Prices{
         let default_normal_prices = this.default()
 
         for(let drink in default_normal_prices){
-            this.price_history[drink] = [default_normal_prices[drink]]
+            this.prices_history[drink] = [default_normal_prices[drink]]
         }
         this.number_of_drinks = Object.keys(default_normal_prices).length
     }
@@ -90,9 +90,9 @@ class Prices{
         let last_non_krach_index = indexes.last_non_krach_index()
 
         let last_non_krach = {}
-        for(let drink in this.price_history){
-            if(this.price_history[drink].length == number_of_completed_indexes){ // take only drinks that are still updated
-                last_non_krach[drink] = this.price_history[drink][last_non_krach_index]
+        for(let drink in this.prices_history){
+            if(this.prices_history[drink].length == number_of_completed_indexes){ // take only drinks that are still updated
+                last_non_krach[drink] = this.prices_history[drink][last_non_krach_index]
             }
         }
 
@@ -103,9 +103,9 @@ class Prices{
         let number_of_indexes = indexes.party_index.length
 
         let last_prices = {}
-        for(let drink in this.price_history){
-            if(this.price_history[drink].length == number_of_indexes){ // take only drinks that are still updated
-                last_prices[drink] = this.price_history[drink][number_of_indexes - 1]
+        for(let drink in this.prices_history){
+            if(this.prices_history[drink].length == number_of_indexes){ // take only drinks that are still updated
+                last_prices[drink] = this.prices_history[drink][number_of_indexes - 1]
             }
         }
 
@@ -121,19 +121,23 @@ class Prices{
         let price_var = this.price_variation(new_sales, former_prices, milliseconds_since_last_update)
     
         let new_prices = {}
-        for(let drink in this.price_history){
+        for(let drink in this.prices_history){
             let min_price = 0
             if("min_price" in default_prices[drink]){
                 min_price = default_prices[drink]["min_price"]
             }
             
-            new_prices[drink] = Math.max(
+            new_prices[drink] = round(Math.max(
                                     (former_prices[drink]
                                     * (1 + price_var[drink] / 100))
                                     , min_price
-                                )
+                                ), 2)
         }
     
         return new_prices
     }
+}
+
+function round(x, n_digit){
+    return Math.round(x * 10**n_digit) / 10**n_digit
 }

@@ -1,5 +1,5 @@
 var prices = new Prices()
-refresh_period = 60
+refresh_period = 15
 var indexes = new Indexes(refresh_period)
 var sales = new Sales()
 
@@ -41,6 +41,7 @@ function new_interval(set_krach = null){
         prices.append(new_prices)
     }
 
+    data_upload("indexes", indexes)
     data_upload("prices", prices)
     update_sales(prices.last(indexes))
 }

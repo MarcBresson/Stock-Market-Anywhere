@@ -1,5 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.1/chart.min.js" integrity="sha512-O2fWHvFel3xjQSi9FyzKXWLTvnom+lOYR/AUEThL/fbP4hv1Lo5LCFCGuTXBRyKC4K4DJldg5kxptkgXAzUpvA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="../js/dashboard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="../css/dashboard.css" rel="stylesheet">
 
 <html>
@@ -50,44 +49,12 @@
 </html>
 
 <script>
-
-const ctx = document.getElementById('chart').getContext('2d');
-
-const config = {
-  type: 'line',
-  options: {
-		plugins: {
-			legend: {
-				display: true,
-				labels: {
-					color: 'rgba(255,255,255,0.7)',
-					boxHeight: 1,
-				}
-			},
-			tooltip: {
-				intersect: false,
-			}
-		},
-		resizeDelay: 300,
-		responsive: false,
-		scales: {
-			yAxis: {
-				position: 'right',
-				ticks: {
-					color: '#fff',
-					callback: function(value, index, values) {
-                        return value + " €";
-                    }
-				},
-				grid: {
-					borderColor: '#fff',
-					color: 'rgba(255,255,255,0.4)',
-					borderDash:[5, 5] ,
-				}
-			}
-		},
-	}
-};
-
-const myChart = new Chart(ctx, config);
+	curves_to_display = 9
+	minutes_for_points_history = 15
 </script>
+
+<script src="../parametres/default_prices.js"></script>
+<script src="../js/dashboard_chart.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/countdown.js"></script>
+<script src="../js/page_dashboard.js"></script>
