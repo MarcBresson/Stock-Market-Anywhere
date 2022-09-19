@@ -4,6 +4,7 @@ prices_listener.check()
 init()
 var prices_history
 var indexes
+var is_krach
 
 function init(){
     prices_history = prices_listener.value["prices_history"]
@@ -20,10 +21,12 @@ setInterval(() => {
     if(prices_listener.check()){
         prices_history = prices_listener.value["prices_history"]
         indexes = data_get_information("indexes")
+        is_krach = data_get_information("is_krach")
 
         add_new_prices_to_chart()
         update_cheapest()
         update_prices_table()
+        krach_style()
     }
 }, 500)
 
@@ -100,6 +103,14 @@ function update_prices_table(){
         variation[trigram] < 0 ? variation_sign = "negative" : ""
         trigram_el.setAttribute("growth", variation_sign)
 	}
+}
+
+function krach_style(){
+    if(is_krach === true){
+        document.querySelector("html").classList.add("active_krach")
+    } else {
+        document.querySelector("html").classList.remove("active_krach")
+    }
 }
 
 function round(x, n_digit){

@@ -22,6 +22,10 @@ function starts(){
             update_countdown_party_end()
         }
     }, (1000));
+
+    data_upload("indexes", indexes)
+    data_upload("prices", prices)
+    data_upload("is_krach", false)
 }
 
 
@@ -43,6 +47,7 @@ function new_interval(set_krach = null){
 
     data_upload("indexes", indexes)
     data_upload("prices", prices)
+    data_upload("is_krach", indexes.is_krach())
     update_sales(prices.last(indexes))
 }
 

@@ -110,8 +110,8 @@ chart = new ChartExtension(ctx, config)
 
 function init_chart(){
     let nbr_points = nbr_of_point_to_display()
-    let i = Math.max(0, indexes.party_index.length - nbr_points - 1)
-    while(i < indexes.party_index.length - 1){ // the last one is never completed
+    let i = Math.max(0, indexes.party_index.length - nbr_points)
+    while(i < indexes.party_index.length){
         chart.addAxisLabel(indexes.party_index[i][0])
         i ++
     }

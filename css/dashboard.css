@@ -3,15 +3,15 @@ html {
     font-family: system-ui;
     color: #fff;
 }
+html.active_krach {
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(49, 26, 26) 0.3%, rgb(22, 9, 9) 90.2% );
+}
 .conteneur {
     padding : 20px;
     border-radius: 12px;
 }
-body.dark .conteneur{
+body .conteneur{
     background-color: rgba(255, 255, 255, 0.05);
-}
-body.red .conteneur{
-    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(49, 26, 26) 0.3%, rgb(22, 9, 9) 90.2% );
 }
 
 #banniere {
