@@ -107,3 +107,55 @@ class ChartExtension{
 }
 
 chart = new ChartExtension(ctx, config)
+
+function init_chart(){
+    let nbr_points = nbr_of_point_to_display()
+    let i = Math.max(0, indexes.party_index.length - nbr_points - 1)
+    while(i < indexes.party_index.length - 1){ // the last one is never completed
+        chart.addAxisLabel(indexes.party_index[i][0])
+        i ++
+    }
+    chart.update()
+}
+
+function display_new_curve(){
+    let trigram = trigram_to_display()
+	let last_prices = prices_history[trigram].slice(- nbr_of_point_to_display())
+    let full_name = default_prices[trigram]["nom_complet"]
+    let color = default_prices[trigram]["colour"]
+
+	chart.addNewCurve(trigram, full_name, color, last_prices)
+    
+    if(chart.getNbrCurveMissing() > 1){
+        display_new_curve()
+    }
+    chart.update()
+}
+
+function nbr_of_point_to_display(){
+    return (minutes_for_points_history * 60) / indexes.refresh_period
+}
+
+var next_index_to_display = 0
+function trigram_to_display(){
+    let available_trigrams = Object.keys(prices_history)
+    next_index_to_display = (next_index_to_display + 1) % available_trigrams.length
+    return available_trigrams[next_index_to_display]
+}
+
+function add_new_prices_to_chart(){
+    let last_prices = get_last_prices()
+
+    for(index in chart.trigram_displayed){
+        trigram = chart.trigram_displayed[index]
+        chart.addDataPoint(trigram, last_prices[trigram])
+    }
+
+    chart.addAxisLabel(indexes.party_index.at(-2)[0])
+
+    let minutes_since_oldest_datapoint = (Date.now() - chart.OldestDataPoint()) / 1000 / 60
+    if(minutes_since_oldest_datapoint > minutes_for_points_history){
+        chart.removeOldestDatapoints()
+    }
+    chart.update()
+}

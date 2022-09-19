@@ -1,5 +1,5 @@
 html {
-    background : #0c0c0e;
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(26, 40, 49) 0.3%, rgb(9,15,22) 90.2% );
     font-family: system-ui;
     color: #fff;
 }
@@ -8,10 +8,10 @@ html {
     border-radius: 12px;
 }
 body.dark .conteneur{
-    background-color: #202029;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 body.red .conteneur{
-    background-color: #470a0a;
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(49, 26, 26) 0.3%, rgb(22, 9, 9) 90.2% );
 }
 
 #banniere {
@@ -27,27 +27,27 @@ body.red .conteneur{
     align-self: center;
     white-space: nowrap;
 }
-#moins_chere {
+#cheapest {
     align-self: center;
     width:100%;
     margin-right:20px;
     text-align: right;
 }
-#moins_chere .vertical {
+#cheapest .vertical {
     writing-mode: tb-rl;
     transform: rotate(180deg);
     text-align: left;
     font-size: 1.1em;
 }
-#moins_chere .hashtag_prix {
-    font-size: 70px;
+#cheapest .hashtag_prix {
+    font-size: 60px;
     font-weight: 600;
     color: #30ff70;
     font-family: sans-serif;
     margin-left:40px;
     margin-right:5px;
 }
-#moins_chere .indice {
+#cheapest .indice {
     font-size: 25px;
     font-family: sans-serif;
     margin-right:10px;
@@ -64,8 +64,8 @@ body.red .conteneur{
 }
 #afficheur_prix tr:nth-child(even) {background: rgba(255,255,255,0.06);}
 
-#afficheur_prix tr[croissance="positive"] .indice, #afficheur_prix tr[croissance="positive"] .prix, #afficheur_prix tr[croissance="positive"] .croissance {color : rgb(60, 151, 60);}
-#afficheur_prix tr[croissance="negative"] .indice, #afficheur_prix tr[croissance="negative"] .prix, #afficheur_prix tr[croissance="negative"] .croissance {color : rgb(202, 58, 58);}
+#afficheur_prix tr[growth="positive"] .indice, #afficheur_prix tr[growth="positive"] .prix, #afficheur_prix tr[growth="positive"] .croissance {color : rgb(60, 151, 60);}
+#afficheur_prix tr[growth="negative"] .indice, #afficheur_prix tr[growth="negative"] .prix, #afficheur_prix tr[growth="negative"] .croissance {color : rgb(202, 58, 58);}
 
 #afficheur_prix tr .prix {
     font-weight: 700;

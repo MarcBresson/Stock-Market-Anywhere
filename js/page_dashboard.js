@@ -2,79 +2,106 @@ var minuterie_display_new_curve = new Minuterie(20, display_new_curve)
 var prices_listener = new ChangeListener("prices")
 prices_listener.check()
 init()
-
 var prices_history
 var indexes
+
 function init(){
     prices_history = prices_listener.value["prices_history"]
     indexes = data_get_information("indexes")
 
-    let nbr_points = nbr_of_point_to_display()
-    let i = Math.max(0, indexes.party_index.length - nbr_points - 1)
-    while(i < indexes.party_index.length - 1){
-        chart.addAxisLabel(indexes.party_index[i][0])
-        i ++
-    }
-    chart.update()
+    init_chart()
+    update_cheapest()
+    generate_price_display()
 }
 
 setInterval(() => {
     minuterie_display_new_curve.check()
+
     if(prices_listener.check()){
         prices_history = prices_listener.value["prices_history"]
         indexes = data_get_information("indexes")
 
         add_new_prices_to_chart()
+        update_cheapest()
+        update_prices_table()
     }
-}, 1000)
+}, 500)
 
-function display_new_curve(){
-    let trigram = trigram_to_display()
-	let last_prices = prices_history[trigram].slice(- nbr_of_point_to_display())
-    let full_name = default_prices[trigram]["nom_complet"]
-    let color = default_prices[trigram]["colour"]
-
-	chart.addNewCurve(trigram, full_name, color, last_prices)
-    
-    if(chart.getNbrCurveMissing() > 1){
-        display_new_curve()
-    }
-    chart.update()
-}
-
-function nbr_of_point_to_display(){
-    return (minutes_for_points_history * 60) / indexes.refresh_period
-}
-
-var next_index_to_display = 0
-function trigram_to_display(){
-    let available_trigrams = Object.keys(prices_history)
-    next_index_to_display = (next_index_to_display + 1) % available_trigrams.length
-    return available_trigrams[next_index_to_display]
-}
-
-function add_new_prices_to_chart(){
-    let last_prices = get_new_prices()
-
-    for(index in chart.trigram_displayed){
-        trigram = chart.trigram_displayed[index]
-        chart.addDataPoint(trigram, last_prices[trigram])
-    }
-
-    chart.addAxisLabel(indexes.party_index.at(-2)[0])
-
-    let minutes_since_oldest_datapoint = (Date.now() - chart.OldestDataPoint()) / 1000 / 60
-    if(minutes_since_oldest_datapoint > minutes_for_points_history){
-        chart.removeOldestDatapoints()
-    }
-    chart.update()
-}
-
-function get_new_prices(){
+function get_last_prices(index = -1){
     let last_prices = {}
     for(trigram in prices_history){
-        last_prices[trigram] = prices_history[trigram].at(-1)
+        last_prices[trigram] = prices_history[trigram].at(index)
     }
 
     return last_prices
+}
+
+function get_variation(){
+    let variation = {}
+
+    let last_prices = get_last_prices()
+    let last_last_prices = get_last_prices(-2)
+    for(trigram in prices_history){
+        variation[trigram] = last_prices[trigram] / last_last_prices[trigram]
+        variation[trigram] = round((variation[trigram] - 1) * 100, 2)
+    }
+
+    return variation
+}
+
+function update_cheapest(){
+    let last_prices = get_last_prices()
+	var cheapest = Object.keys(last_prices).map(function(key) {
+        return [key, last_prices[key]];
+    });
+
+    cheapest.sort(function(first, second) {
+        return first[1] - second[1];
+    });
+      
+	cheapest = cheapest.splice(0,3)
+	for(let i=0; i < 3; i++){
+		document.querySelector("#cheapest .indice#numero_" + (i+1)).innerHTML = cheapest[i][0];
+	}
+}
+
+function generate_price_display(){
+    let last_prices = get_last_prices()
+	let tableau = document.querySelector('#afficheur_prix tbody');
+
+	for(let trigram in default_prices){
+		tableau.innerHTML += 
+			"<tr class='prix_" + trigram + "'>" +
+				"<td style='color:" + default_prices[trigram]["colour"] + "'>&#11044;</td>" +
+				"<td>" + default_prices[trigram]["nom_complet"] + "</td>" +
+				"<td class='indice'>" + trigram + "</td>" +
+				"<td class='prix'>" + last_prices[trigram] + " &euro;</td>" +
+				"<td class='croissance'>0 %</td>" +
+			"</tr>"
+	}
+}
+
+function update_prices_table(){
+    let last_prices = get_last_prices()
+    let variation = get_variation()
+
+	for(let trigram in default_prices){
+		let trigram_el =  document.querySelector('#afficheur_prix .prix_' + trigram);
+		let trigram_el_price = trigram_el.querySelector('.prix');
+		let trigram_el_variation = trigram_el.querySelector('.croissance');
+
+		trigram_el_price.innerText = last_prices[trigram] + " €"
+
+        let variation_sign
+        variation[trigram] > 0 ? variation_sign = "+" : variation_sign = ""
+        trigram_el_variation.innerText = variation_sign + variation[trigram] + "%"
+
+        variation[trigram] > 0 ? variation_sign = "positive" : variation_sign = "neutral"
+        variation[trigram] < 0 ? variation_sign = "negative" : ""
+        trigram_el.setAttribute("growth", variation_sign)
+	}
+}
+
+function round(x, n_digit){
+    return Math.round(x * 10**n_digit) / 10**n_digit
 }
