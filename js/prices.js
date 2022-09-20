@@ -19,6 +19,27 @@ class Prices{
         }
     }
 
+    toCSV(){
+        let trigrams = Object.keys(this.prices_history)
+        let str_csv = "index," + trigrams.join(",") + "\n"
+
+        let max_length = 0
+        for(let i in trigrams){
+            max_length = Math.max(this.prices_history[trigrams[i]].length, max_length)
+        }
+        for(let i = 0; i < max_length; i++){
+            let prices = [i]
+            for(let ii in trigrams){
+                let value = this.prices_history[trigrams[ii]].at(i)
+                if(value === undefined){value = ""}
+                prices.push(value)
+            }
+            str_csv += prices.join(",") + "\n"
+        }
+
+        return str_csv
+    }
+
     append(prices_dict){
         for(let drink in this.prices_history){
             if(drink in prices_dict){

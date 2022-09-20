@@ -42,6 +42,14 @@ function go_to_scheduler(){
 document.getElementById("resume").addEventListener("click", () => {
     go_to_stock_market()
     reload()
+    init()
+})
+
+document.getElementById("download").addEventListener("click", () => {
+    reload()
+    download(sales.toCSV(), "sales.csv")
+    download(prices.toCSV(), "prices.csv")
+    download(indexes.toCSV(), "indexes.csv")
 })
 
 document.getElementById("reset").addEventListener("click", () => {

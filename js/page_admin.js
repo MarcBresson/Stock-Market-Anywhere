@@ -15,8 +15,6 @@ function reload(){
     indexes.load(data_get_information("indexes"))
     prices.load(data_get_information("prices"))
     sales.load(data_get_information("sales"))
-
-    init()
 }
 
 function init(){

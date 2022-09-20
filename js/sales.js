@@ -24,6 +24,13 @@ class Sales{
         this.most_sold = json_object.most_sold
     }
 
+    toCSV(){
+        let str_csv = "trigram,sales timestamp,price\n"
+        str_csv += this.sales.map(arr => (arr.join(","))).join("\n")
+
+        return str_csv
+    }
+
     between(start, end){
         if(this.sales.length == 0){return []}
 

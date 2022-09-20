@@ -13,6 +13,13 @@ class Indexes{
         this.refresh_period = json_object.refresh_period
     }
 
+    toCSV(){
+        let str_csv = "interval start,interval end,is krach\n"
+        str_csv += this.party_index.map(arr => (arr.join(","))).join("\n")
+
+        return str_csv
+    }
+
     is_time_for_next(){
         return this.time_until_next() < 0
     }
