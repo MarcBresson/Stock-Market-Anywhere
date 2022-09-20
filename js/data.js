@@ -1,4 +1,5 @@
 var last_updates = data_get_information('last_updates')
+if(last_updates === null){last_updates = {}}
 
 function data_upload(variable_name, variable_value){
 	if(typeof variable_value == 'object'){
@@ -27,6 +28,7 @@ function get_last_update(variable_name){
 
 function has_data(){
 	let last_updates = data_get_information('last_updates')
+	if(last_updates === null){last_updates = {}}
 
 	if("sales" in last_updates && "prices" in last_updates && "indexes" in last_updates){
 		return true
