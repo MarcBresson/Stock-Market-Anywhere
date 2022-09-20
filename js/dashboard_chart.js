@@ -22,7 +22,7 @@ const config = {
 				position: 'right',
 				ticks: {
 					color: '#fff',
-					callback: function(value, index, values) {
+					callback: function(value) {
                         return value + " €";
                     }
 				},
@@ -31,6 +31,12 @@ const config = {
 					color: 'rgba(255,255,255,0.4)',
 					borderDash:[5, 5] ,
 				}
+			},
+			x: {
+                type: 'time',
+                time: {
+                    unit: 'minute'
+                }
 			}
 		},
 	}
@@ -42,12 +48,10 @@ class ChartExtension{
 
 	constructor(ctx, config){
 		this.chart = new Chart(ctx, config);
-		this.chart.data.labels_timestamp = []
 	}
 
 	removeOldestDatapoints() {
 		this.chart.data.labels.splice(0,1);
-		this.chart.data.labels_timestamp.splice(0,1);
 		this.chart.data.datasets.forEach((dataset) => {
 			dataset.data.splice(0,1);
 		});
@@ -61,14 +65,12 @@ class ChartExtension{
 	}
 
 	addAxisLabel(start_index){
-		let options = {hour: "2-digit", minute: "2-digit"};
 		let now = new Date(start_index);
-		this.chart.data.labels.push(now.toLocaleTimeString("fr-FR", options));
-		this.chart.data.labels_timestamp.push(now.getTime());
+		this.chart.data.labels.push(now.getTime());
 	}
 
 	OldestDataPoint(){
-		return this.chart.data.labels_timestamp[0]
+		return this.chart.data.labels[0]
 	}
 
 	addNewCurve(trigram, full_name, couleur, data) {
@@ -106,7 +108,7 @@ class ChartExtension{
 	}
 }
 
-chart = new ChartExtension(ctx, config)
+var chart = new ChartExtension(ctx, config)
 
 function init_chart(){
     let nbr_points = nbr_of_point_to_display()
