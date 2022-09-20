@@ -4,10 +4,22 @@ var indexes = new Indexes(refresh_period)
 var sales = new Sales()
 
 
-function starts(){
+function start_from_nothing(){
     indexes.new(false)
     prices.set_default()
 
+    init()
+}
+
+function reload(){
+    indexes.load(data_get_information("indexes"))
+    prices.load(data_get_information("prices"))
+    sales.load(data_get_information("sales"))
+
+    init()
+}
+
+function init(){
     buttons_sale_drink.forEach(function(button_sale) {
         button_sale.removeAttribute("disabled")
     })
@@ -45,6 +57,7 @@ function new_interval(set_krach = null){
         prices.append(new_prices)
     }
 
+    data_upload("sales", sales)
     data_upload("indexes", indexes)
     data_upload("prices", prices)
     data_upload("is_krach", indexes.is_krach())
@@ -69,10 +82,11 @@ for(let i in default_prices){
 }
 
 let buttons_sale_drink = document.querySelectorAll('.drink')
-buttons_sale_drink.forEach(function(button_sale) {
-	button_sale.addEventListener('click', function() {
+buttons_sale_drink.forEach(function(sale_button) {
+	sale_button.addEventListener('click', function() {
 		let trigram = this.getAttribute('trigram')
-		sales.new(trigram)
+		let actual_price = this.getAttribute('actual_price')
+		sales.new(trigram, actual_price)
 	});
 })
 

@@ -9,14 +9,19 @@ class Sales{
     // ]
     most_sold = {}
 
-    new(drink_trigram){
-        this.sales.push([drink_trigram, Date.now()])
+    new(drink_trigram, price){
+        this.sales.push([drink_trigram, Date.now(), price])
 
         if(drink_trigram in this.most_sold){
             this.most_sold[drink_trigram] ++
         } else {
             this.most_sold[drink_trigram] = 1
         }
+    }
+
+    load(json_object){
+        this.sales = json_object.sales
+        this.most_sold = json_object.most_sold
     }
 
     between(start, end){

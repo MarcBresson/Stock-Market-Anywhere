@@ -39,6 +39,11 @@ function go_to_scheduler(){
     })
 }
 
+document.getElementById("resume").addEventListener("click", () => {
+    go_to_stock_market()
+    reload()
+})
+
 document.getElementById("reset").addEventListener("click", () => {
     go_to_start()
 })
@@ -47,9 +52,9 @@ document.getElementById("schedule_start").addEventListener("click", () => {
     go_to_scheduler()
 })
 
-document.getElementById("starts_now").addEventListener("click", () => {
+document.getElementById("start_now").addEventListener("click", () => {
     go_to_stock_market()
-    starts()
+    start_from_nothing()
     open_dashboard()
 })
 
@@ -64,7 +69,7 @@ document.getElementById("validate_schedule").addEventListener("click", () => {
     data_upload("countdown_end", datetime_start)
     data_upload("countdown_message", message)
 
-    countdown_til_start = new Countdown(datetime_start, starts)
+    countdown_til_start = new Countdown(datetime_start, start_from_nothing)
     countdown_til_end = new Countdown(datetime_end)
 
     open_countdown()

@@ -65,8 +65,12 @@ class ChartExtension{
 	}
 
 	addAxisLabel(start_index){
-		let now = new Date(start_index);
-		this.chart.data.labels.push(now.getTime());
+		if(this.chart.data.labels.length == 0 || this.chart.data.labels.at(-1) < start_index){
+			this.chart.data.labels.push(start_index);
+			return true
+		}
+
+		return false
 	}
 
 	OldestDataPoint(){
@@ -148,13 +152,15 @@ function trigram_to_display(){
 function add_new_prices_to_chart(){
     let last_prices = get_last_prices()
 
-    for(index in chart.trigram_displayed){
-        trigram = chart.trigram_displayed[index]
-        chart.addDataPoint(trigram, last_prices[trigram])
-    }
+    let need_update = chart.addAxisLabel(indexes.party_index.at(-1)[0])
 
-    chart.addAxisLabel(indexes.party_index.at(-2)[0])
-
+	if(need_update){
+		for(index in chart.trigram_displayed){
+			trigram = chart.trigram_displayed[index]
+			chart.addDataPoint(trigram, last_prices[trigram])
+		}
+	}
+    
     let minutes_since_oldest_datapoint = (Date.now() - chart.OldestDataPoint()) / 1000 / 60
     if(minutes_since_oldest_datapoint > minutes_for_points_history){
         chart.removeOldestDatapoints()

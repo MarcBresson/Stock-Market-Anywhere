@@ -22,10 +22,15 @@ function data_get_information(variable_name, type = 'Object'){
 }
 
 function get_last_update(variable_name){
-	return JSON.parse(localStorage.getItem("last_updates"))[variable_name]
+	return data_get_information("last_updates")[variable_name]
 }
 
 function has_data(){
+	let last_updates = data_get_information('last_updates')
+	
+	if("sales" in last_updates && "prices" in last_updates && "indexes" in last_updates){
+		return true
+	}
 	return false
 }
 

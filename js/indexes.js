@@ -7,6 +7,11 @@ class Indexes{
     constructor(refresh_period = 60){
         this.refresh_period = refresh_period
     }
+    
+    load(json_object){
+        this.party_index = json_object.party_index
+        this.refresh_period = json_object.refresh_period
+    }
 
     is_time_for_next(){
         return this.time_until_next() < 0

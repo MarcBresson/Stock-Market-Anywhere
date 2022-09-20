@@ -10,6 +10,14 @@ class Prices{
     //      "plo": [0.62, 0.45, 0.2],
     // }
     coef_multiplicator = 100
+    
+    load(json_object){
+        this.prices_history = json_object.prices_history
+        this.coef_multiplicator = json_object.coef_multiplicator
+        if("number_of_drinks" in json_object){
+            this.number_of_drinks = json_object.number_of_drinks
+        }
+    }
 
     append(prices_dict){
         for(let drink in this.prices_history){

@@ -12,6 +12,7 @@ class SaleButton{
 		bouton.id = this.trigram;
 		bouton.className = "drink";
 		bouton.setAttribute("trigram", trigram)
+		bouton.setAttribute("actual_price", this.actual_price)
 		bouton.setAttribute("disabled", "")
 
 		bouton.innerHTML = 
@@ -29,9 +30,11 @@ class SaleButton{
     }
 
     update_dom(new_price){
-        this.actual_price = new_price
-
         let el = document.getElementById(this.trigram)
+
+        this.actual_price = new_price
+        el.setAttribute("actual_price", this.actual_price)
+
         el.querySelector('.actual_price').innerHTML = round(new_price, 2) + "€"
 
         let variation = round((new_price / this.initial_price - 1) * 100, 1)
