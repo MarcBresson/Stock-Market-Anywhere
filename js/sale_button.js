@@ -44,7 +44,3 @@ class SaleButton{
         el.querySelector('.variation').setAttribute("sign", variation_sign)
     }
 }
-
-function round(x, n_digit){
-    return Math.round(x * 10**n_digit) / 10**n_digit
-}

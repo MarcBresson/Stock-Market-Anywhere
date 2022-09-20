@@ -64,7 +64,8 @@ function update_cheapest(){
       
 	cheapest = cheapest.splice(0,3)
 	for(let i=0; i < 3; i++){
-		document.querySelector("#cheapest .indice#numero_" + (i+1)).innerHTML = cheapest[i][0];
+        let trigram = cheapest[i][0]
+		document.querySelector("#cheapest .indice#numero_" + (i+1)).innerHTML = default_prices[trigram]["nom_complet"];
 	}
 }
 
@@ -111,8 +112,4 @@ function krach_style(){
     } else {
         document.querySelector("html").classList.remove("active_krach")
     }
-}
-
-function round(x, n_digit){
-    return Math.round(x * 10**n_digit) / 10**n_digit
 }

@@ -18,12 +18,12 @@ const config = {
 		resizeDelay: 300,
 		responsive: false,
 		scales: {
-			yAxis: {
+			y: {
 				position: 'right',
 				ticks: {
 					color: '#fff',
 					callback: function(value) {
-                        return value + " €";
+                        return round(value, 1) + " €";
                     }
 				},
 				grid: {

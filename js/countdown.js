@@ -43,8 +43,19 @@ class Countdown{
             time.push(value)
         }
 
-        return clean_time(time, units)
+        return this.clean_time(time, units)
     }
+
+    clean_time(time, units){
+        time = time.reverse()
+    
+        while (time[time.length - 1] == 0 && time.length > 1) {
+            time.pop()
+        }
+    
+        return [time.reverse(), units.slice(-time.length)]
+    }
+    
 }
 
 class Minuterie{
@@ -76,15 +87,4 @@ class Minuterie{
     seconds_remaining(){
         return Math.ceil((this.next_check - Date.now()) / 1000)
     }
-}
-
-
-function clean_time(time, units){
-    time = time.reverse()
-
-    while (time[time.length - 1] == 0 && time.length > 1) {
-        time.pop()
-    }
-
-    return [time.reverse(), units.slice(-time.length)]
 }

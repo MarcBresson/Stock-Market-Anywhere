@@ -45,3 +45,7 @@ class ChangeListener{
 		return false
 	}
 }
+
+function round(x, n_digit){
+    return Math.round(x * 10**n_digit) / 10**n_digit
+}
