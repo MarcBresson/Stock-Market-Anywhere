@@ -19,7 +19,7 @@ a {
     text-decoration: inherit;
 }
 
-.choices_buttons, .scheduler_settings {
+.big_buttons {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -28,28 +28,37 @@ a {
     justify-content: center;
 }
 
-.choices_buttons > div, .scheduler_settings > div {
+.big_buttons > div.multiple_buttons_container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     grid-gap: 40px;
 }
-
-.choices_buttons > div div {
+.big_buttons > div div.gradient_div {
     padding: 20px;
     border-radius: 15px;
     max-width: 150px;
+}
+
+.choices_buttons > div div {
     transform: scale(1);
     transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor:pointer;
 }
-.scheduler_settings > div div {
-    padding: 20px;
-    border-radius: 15px;
-    max-width: 150px;
-}
 .choices_buttons > div div.zoom:hover {
     transform: scale(1.05);
+}
+
+.gradient_button {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: large;
+    padding: 14px 26px;
+    border-radius: 12px;
+}
+
+.parametre input {
+    width: 100%;
 }
 
 #scheduler, #stock_market {
@@ -192,8 +201,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 #schedule_message {
     max-width: inherit;
 }
-#schedule_message input {
-    background: rgba(255, 255, 255, 0.11);
+#schedule_message input, .parametre input {
+    background: rgba(0, 0, 0, 0.11);
     border: none;
     font-size: large;
     border-radius: 5px;

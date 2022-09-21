@@ -28,9 +28,6 @@ function init(){
         }
 
         update_countdown_new_price()
-        if(countdown_til_end){
-            update_countdown_party_end()
-        }
     }, (1000));
 
     data_upload("indexes", indexes)
@@ -69,8 +66,8 @@ let el_drinks = document.getElementById("drinks");
 let sale_buttons = {}
 for(let i in default_prices){
 	trigram = i
-	fullname = default_prices[i]["nom_complet"]
-	initial_price = default_prices[i]["prix_initial"]
+	fullname = default_prices[i]["full_name"]
+	initial_price = default_prices[i]["initial_price"]
 	colour = default_prices[i]["colour"]
 
 	bouton = new SaleButton(trigram, fullname, initial_price, colour)

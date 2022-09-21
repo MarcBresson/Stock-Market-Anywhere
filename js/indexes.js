@@ -6,6 +6,7 @@ class Indexes{
     // ]
     constructor(refresh_period = 60){
         this.refresh_period = refresh_period
+        document.getElementById("parametre_refresh_period").value = refresh_period
     }
     
     load(json_object){

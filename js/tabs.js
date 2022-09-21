@@ -2,6 +2,8 @@ what_to_do_with_data = document.getElementById("what_to_do_with_data")
 start_the_party = document.getElementById("start_the_party")
 stock_market = document.getElementById("stock_market")
 scheduler = document.getElementById("scheduler")
+parametres = document.getElementById("parametres")
+
 function tabs_to_display(){
     if(has_data()){
         what_to_do_with_data.style.display = "flex"
@@ -39,6 +41,14 @@ function go_to_scheduler(){
     })
 }
 
+function go_to_parametres(){
+    parametres.style.display = "flex"
+    parametres.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    })
+}
+
 document.getElementById("resume").addEventListener("click", () => {
     go_to_stock_market()
     reload()
@@ -67,18 +77,15 @@ document.getElementById("start_now").addEventListener("click", () => {
 })
 
 var countdown_til_start
-var countdown_til_end
 document.getElementById("validate_schedule").addEventListener("click", () => {
     let extraction = extract_value_from_schedule()
     let datetime_start = extraction[0]
-    let datetime_end = extraction[1]
     let message = extraction[2]
 
     data_upload("countdown_end", datetime_start)
     data_upload("countdown_message", message)
 
     countdown_til_start = new Countdown(datetime_start, start_from_nothing)
-    countdown_til_end = new Countdown(datetime_end)
 
     open_countdown()
     go_to_stock_market()

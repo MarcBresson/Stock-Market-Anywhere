@@ -9,11 +9,15 @@ class Prices{
     //      "bar": [1.5, 1.34, 1.7],
     //      "plo": [0.62, 0.45, 0.2],
     // }
-    coef_multiplicator = 100
+
+    constructor(amplification = 100){
+        this.amplification = amplification
+        document.getElementById("parametre_prices_var_amp").value = amplification
+    }
     
     load(json_object){
         this.prices_history = json_object.prices_history
-        this.coef_multiplicator = json_object.coef_multiplicator
+        this.amplification = json_object.amplification
         if("number_of_drinks" in json_object){
             this.number_of_drinks = json_object.number_of_drinks
         }
@@ -53,7 +57,7 @@ class Prices{
     default(){
         let default_normal_prices = {}
         for(let drink in default_prices){
-            default_normal_prices[drink] = default_prices[drink]["prix_initial"]
+            default_normal_prices[drink] = default_prices[drink]["initial_price"]
         }
 
         return default_normal_prices
@@ -71,7 +75,7 @@ class Prices{
     krach(){
         let krach_prices = {}
         for(let drink in default_prices){
-            krach_prices[drink] = default_prices[drink]["prix_krach"]
+            krach_prices[drink] = default_prices[drink]["krach_price"]
         }
 
         return krach_prices
@@ -92,9 +96,9 @@ class Prices{
         let maximum = Math.max(...Object.values(sales_per_drink));
         let centered_sales = this.center_sales(sales_per_drink, average_sales, maximum)
     
-        // tend to coef_multiplicator's value when total_sales goes to infinity
+        // tend to amplification's value when total_sales goes to infinity
         // those points are then shared between the drinks
-        let max_var_per_minute = (Math.atan(total_sales/10) / (Math.PI/2) * this.coef_multiplicator)
+        let max_var_per_minute = (Math.atan(total_sales/10) / (Math.PI/2) * this.amplification)
         let max_var = max_var_per_minute * milliseconds_since_last_update / 1000 / 60
         for(let drink in centered_sales){
             centered_sales[drink] = centered_sales[drink] * max_var

@@ -65,7 +65,7 @@ function update_cheapest(){
 	cheapest = cheapest.splice(0,3)
 	for(let i=0; i < 3; i++){
         let trigram = cheapest[i][0]
-		document.querySelector("#cheapest .indice#numero_" + (i+1)).innerHTML = default_prices[trigram]["nom_complet"];
+		document.querySelector("#cheapest .indice#numero_" + (i+1)).innerHTML = default_prices[trigram]["full_name"];
 	}
 }
 
@@ -77,7 +77,7 @@ function generate_price_display(){
 		tableau.innerHTML += 
 			"<tr class='prix_" + trigram + "'>" +
 				"<td style='color:" + default_prices[trigram]["colour"] + "'>&#11044;</td>" +
-				"<td>" + default_prices[trigram]["nom_complet"] + "</td>" +
+				"<td>" + default_prices[trigram]["full_name"] + "</td>" +
 				"<td class='indice'>" + trigram + "</td>" +
 				"<td class='prix'>" + last_prices[trigram] + " &euro;</td>" +
 				"<td class='croissance'>0 %</td>" +

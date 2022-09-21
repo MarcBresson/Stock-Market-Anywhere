@@ -127,7 +127,7 @@ function init_chart(){
 function display_new_curve(){
     let trigram = trigram_to_display()
 	let last_prices = prices_history[trigram].slice(- nbr_of_point_to_display())
-    let full_name = default_prices[trigram]["nom_complet"]
+    let full_name = default_prices[trigram]["full_name"]
     let color = default_prices[trigram]["colour"]
 
 	chart.addNewCurve(trigram, full_name, color, last_prices)
@@ -162,7 +162,8 @@ function add_new_prices_to_chart(){
 	}
     
     let minutes_since_oldest_datapoint = (Date.now() - chart.OldestDataPoint()) / 1000 / 60
-    if(minutes_since_oldest_datapoint > minutes_for_points_history){
+    while(minutes_since_oldest_datapoint > minutes_for_points_history){
+		minutes_since_oldest_datapoint = (Date.now() - chart.OldestDataPoint()) / 1000 / 60
         chart.removeOldestDatapoints()
     }
     chart.update()

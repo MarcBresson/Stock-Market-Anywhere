@@ -1,26 +1,39 @@
 <div align="center">
-    <h1>Bourse de Boissons</h1>
-    <h2>Développé par Marc Bresson</h2>
+    <h1>Stock Market Emulation</h1>
+    <h2>Developed par Marc Bresson</h2>
     <p align="center">
         <a href="https://linkedin.com/in/marc--bresson"><img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555"/></a>
     </p>
 </div>
 
-Projet étudiant d'un dashboard local pour émuler les comportements de la bourse sur le prix des boissons.
+Personnal project of a entierly local web app that requires no installation. This web app emulates the stock market on anything with a price variation depending on the sale volume.
 
-![interface publique](images/interface_dashboard.png)
+# Let the party begin !
 
-![interface administrateur](images/interface_admin.png)
+![Countdown : let the party begin !](images/countdown.png)
 
-## Fonctionnement
+You will need two screens for this app. One for the administration panel, where you register sales, and the other one for the public dashboard with every prices, curves etc.
 
-Ce projet utilise deux fenêtres (ou onglets) d'un même navigateur. L'une affiche `admin.html`, et l'autre affiche `dashboard.html`.
+![administration panel](images/admin.png)
+
+![interface administrateur](images/dashboard_normal_1.png)
 
 ## Initialisation
 
-Le prix et le nom des boissons est à configurer dans `boissons.js`. Pour ajouter (supprimer) une boisson, il suffit d'ajouter (de supprimer) une ligne au tableau JSON.
+Edit your prices in `parameters > default_prices.js`. You have to follow this structure :
 
-Vous devez rentrer la date et heure de la soirée dans le fichier `parametres_soirees.js`. Une fois fait, vous pouvez ouvrir le panneau admin, puis le dashboard.
+```json
+{
+    "tgr" : {
+        "initial_price": 1.0, // the start price
+        "krach_price": 0.5, // the price of the good during the krach periods
+        "full_name": "Trigram", // the full name of the good
+        "min_price": 0.4 // OPTIONAL : the minimum price. If not specified, the good will not have any limit, and will be regulated by the market
+    }
+}
+```
+
+Open admin.html in chrome or Edge (doesn't work on Firefox, see #18), and follow the instructions. You will be prompted to either `program the start of the party`, or `start now`.
 
 ## Pendant la soirée
 
