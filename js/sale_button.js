@@ -5,13 +5,14 @@ class SaleButton{
         this.initial_price = initial_price
         this.actual_price = initial_price
         this.colour = colour
+        this.number_of_sales = 0
     }
 
     html(){
-        bouton = document.createElement('div');
+        let bouton = document.createElement('div');
 		bouton.id = this.trigram;
 		bouton.className = "drink";
-		bouton.setAttribute("trigram", trigram)
+		bouton.setAttribute("trigram", this.trigram)
 		bouton.setAttribute("actual_price", this.actual_price)
 		bouton.setAttribute("disabled", "")
 
@@ -23,8 +24,10 @@ class SaleButton{
 				"<div class='initial_price'>" + this.initial_price + "€</div>" +
 				"<div class='variation'>0%</div>" +
 			"</div></div>" +
-			"<div class='add_sale' style='background-color:" + this.colour + "'>+1</div>" +
+			"<div class='add_sale' style='background-color:" + this.colour + "'>0</div>" +
 			"</div>"
+
+        this.dom = bouton
 
         return bouton
     }
@@ -45,5 +48,18 @@ class SaleButton{
         variation > 0 ? variation_sign = "positive" : variation_sign = "neutral"
         variation < 0 ? variation_sign = "negative" : ""
         el.querySelector('.variation').setAttribute("sign", variation_sign)
+
+        this.number_of_sales = 0
+        this.update_counter()
+    }
+
+    add_counter(){
+        this.number_of_sales += 1
+        this.update_counter()
+    }
+
+    update_counter(){
+        let el = document.getElementById(this.trigram)
+        el.querySelector(".add_sale").innerText = this.number_of_sales
     }
 }

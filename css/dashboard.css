@@ -2,6 +2,8 @@ html {
     background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(26, 40, 49) 0.3%, rgb(9,15,22) 90.2% );
     font-family: system-ui;
     color: #fff;
+    position: relative;
+    overflow: hidden;
 }
 html.active_krach {
     background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(76, 33, 33) 0.3%, rgb(45, 18, 18) 90.2% );

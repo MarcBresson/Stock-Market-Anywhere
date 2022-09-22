@@ -18,9 +18,9 @@ function reload(){
 }
 
 function init(){
-    buttons_sale_drink.forEach(function(button_sale) {
-        button_sale.removeAttribute("disabled")
-    })
+    for(let trigram in sale_buttons){
+        sale_buttons[trigram].dom.removeAttribute("disabled")
+    }
 
     x = setInterval(() => {
         if(indexes.is_time_for_next()){
@@ -59,44 +59,41 @@ function new_interval(set_krach = null){
     update_sales(prices.last(indexes))
 }
 
-
-
-// build up the admin interface
-let el_drinks = document.getElementById("drinks");
-let sale_buttons = {}
-for(let i in default_prices){
-	trigram = i
-	fullname = default_prices[i]["full_name"]
-	initial_price = default_prices[i]["initial_price"]
-	colour = default_prices[i]["colour"]
-
-	bouton = new SaleButton(trigram, fullname, initial_price, colour)
-	sale_buttons[trigram] = bouton
-
-	el_drinks.appendChild(bouton.html())
-}
-
-let buttons_sale_drink = document.querySelectorAll('.drink')
-buttons_sale_drink.forEach(function(sale_button) {
-	sale_button.addEventListener('click', function() {
-		let trigram = this.getAttribute('trigram')
-		let actual_price = this.getAttribute('actual_price')
-		sales.new(trigram, actual_price)
-	});
-})
-
 function update_sales(new_price){
 	for(let drink in new_price){
 		sale_buttons[drink].update_dom(new_price[drink])
 	}
 }
 
+// build up the admin interface
+let el_drinks = document.getElementById("drinks");
+var sale_buttons = {}
+for(let trigram in default_prices){
+	let fullname = default_prices[trigram]["full_name"]
+	let initial_price = default_prices[trigram]["initial_price"]
+	let colour = default_prices[trigram]["colour"]
+
+	let bouton = new SaleButton(trigram, fullname, initial_price, colour)
+	sale_buttons[trigram] = bouton
+
+	el_drinks.appendChild(bouton.html())
+}
+
+for(let trigram in sale_buttons){
+    sale_buttons[trigram].dom.addEventListener('click', function() {
+        let actual_price = sale_buttons[trigram].actual_price
+		sales.new(trigram, actual_price)
+
+        new_sale_animation(default_prices[trigram]["colour"], actual_price)
+        sale_buttons[trigram].add_counter(trigram)
+        data_upload("new_sale", [default_prices[trigram]["colour"], actual_price])
+	})
+}
+
 countdown_new_price_el = document.getElementById("remaining_time_til_new_prices")
 function update_countdown_new_price(){
     countdown_new_price_el.innerText = indexes.time_until_next()
 }
-
-
 
 // handles krach
 html_el = document.getElementsByTagName("html")[0]

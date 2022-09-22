@@ -1,12 +1,13 @@
 var minuterie_display_new_curve = new Minuterie(20, display_new_curve)
 var prices_listener = new ChangeListener("prices")
-prices_listener.check()
-init()
+var new_sale_listener = new ChangeListener("new_sale")
 var prices_history
 var indexes
 var is_krach
+init()
 
 function init(){
+    prices_listener.check()
     prices_history = prices_listener.value["prices_history"]
     indexes = data_get_information("indexes")
 
@@ -29,6 +30,12 @@ setInterval(() => {
         krach_style()
     }
 }, 500)
+
+setInterval(() => {
+    if(new_sale_listener.check()){
+        new_sale_animation(new_sale_listener.value[0], new_sale_listener.value[1])
+    }
+}, 30)
 
 function get_last_prices(index = -1){
     let last_prices = {}
