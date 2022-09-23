@@ -57,41 +57,13 @@
 				</div>
 			</div>
 		</div>
-		<div id="parametres" style="display: none;" class="big_buttons">
-			<div class="multiple_buttons_container">
-				<div class="parametre gradient_div" style="background-image: linear-gradient(62deg, #ff823c 0%, #ffc94c 100%);">
-					<h2>Refresh period</h2>
-					<input type="number" id="parametre_refresh_period" value=""/>
-					<p>Compute new prices every n seconds.</p>
-				</div>
-				<script>
-					parametre_refresh_period = document.getElementById("parametre_refresh_period")
-					parametre_refresh_period.addEventListener("change", function(){
-						indexes.refresh_period = parseInt(this.value)
-					})
-				</script>
-				<div class="parametre gradient_div" style="background-image: linear-gradient(262deg, #ff823c 0%, #ffc94c 100%);">
-					<h2>Prices variation amplification</h2>
-					<input type="number" id="parametre_prices_var_amp" value="">
-					<p>Handles the price variation amplification.</p>
-				</div>
-				<script>
-					parametre_prices_var_amp = document.getElementById("parametre_prices_var_amp")
-					parametre_prices_var_amp.addEventListener("change", function(){
-						prices.amplification = parseInt(this.value)
-					})
-				</script>
-			</div>
-			<div style="margin-top: 40px;">
-				<div id="validate_new_param" class="gradient_button" style="background-image: linear-gradient(193deg, #ff823c 0%, #ffc94c 100%);">
-					Validate
-				</div>
-			</div>
-		</div>
 		<div id="stock_market" style="display: none;">
 			<div id="top_line">
 				<div id="party_info">
 					<div>new prices in <span id="remaining_time_til_new_prices"></span></div>
+				</div>
+				<div id="button_parametres">
+					<div>Parametres</div>
 				</div>
 				<div id="krach">
 					Krach
@@ -113,6 +85,25 @@
 						</div>
 					</div>
 				</template>
+			</div>
+		</div>
+		<div id="parametres" style="display: none;" class="big_buttons">
+			<div class="multiple_buttons_container">
+				<div class="parametre gradient_div" style="background-image: linear-gradient(240deg, #ff823c 0%, #ffc94c 100%);">
+					<h2>Refresh period</h2>
+					<input type="number" id="parametre_refresh_period" value=""/>
+					<p>Compute new prices every n seconds.</p>
+				</div>
+				<div class="parametre gradient_div" style="background-image: linear-gradient(99deg, #ff823c 0%, #ffc94c 100%);">
+					<h2>Prices variation amplification</h2>
+					<input type="number" id="parametre_prices_var_amp" value="">
+					<p>Handles the price variation amplification.</p>
+				</div>
+			</div>
+			<div style="margin-top: 40px;">
+				<div id="validate_parametres" class="gradient_button" style="background-image: linear-gradient(193deg, #ff823c 0%, #ffc94c 100%);">
+					Validate
+				</div>
 			</div>
 		</div>
 	</body>

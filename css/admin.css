@@ -77,7 +77,16 @@ a {
     padding: 17px 23px;
     border-radius: 0px 10px 10px 0px;
 }
-
+#button_parametres{
+    position: sticky;
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: linear-gradient(193deg, rgba(255, 130, 60, 0.8) 0%, rgba(255, 201, 76, 0.8) 100%);
+    font-weight: 500;
+    padding: 17px 23px;
+    border-radius: 10px;
+    cursor: pointer;
+}
 #krach {
     margin-left: auto;
     margin-right: 0;

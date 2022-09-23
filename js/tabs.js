@@ -76,6 +76,10 @@ document.getElementById("start_now").addEventListener("click", () => {
     open_dashboard()
 })
 
+document.getElementById("button_parametres").addEventListener("click", () => {
+    go_to_parametres()
+})
+
 var countdown_til_start
 document.getElementById("validate_schedule").addEventListener("click", () => {
     let extraction = extract_value_from_schedule()
@@ -123,6 +127,15 @@ function extract_value_from_schedule(){
 
     return [datetime_start, datetime_end, message]
 }
+
+parametre_refresh_period = document.getElementById("parametre_refresh_period")
+parametre_prices_var_amp = document.getElementById("parametre_prices_var_amp")
+document.getElementById("validate_parametres").addEventListener("click", () => {
+    indexes.refresh_period = parseInt(parametre_refresh_period.value)
+    prices.amplification = parseInt(parametre_prices_var_amp.value)
+
+    go_to_stock_market()
+})
 
 function open_countdown(){
     window.open('countdown.html')
