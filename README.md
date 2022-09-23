@@ -1,18 +1,18 @@
 <div align="center">
-    <h1>Stock Market Emulation</h1>
+    <h1>Stock Market Anywhere</h1>
     <h2>Developed by Marc Bresson</h2>
     <p align="center">
         <a href="https://linkedin.com/in/marc--bresson"><img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555"/></a>
     </p>
 </div>
 
-Personnal project of a web app that emulates the stock market on anything, with a price variation depending on the sale volume. This web app is entierly local, and requires no installation.
+Personnal project of a web app that reproduce the stock market on anything, with a price variation depending on the sale volume. This web app is entirely local, and requires no installation.
 
 # Let the party begin !
 
 ![Countdown : let the party begin !](images/countdown.png)
 
-You will need two screens for this app. One for the administration panel, where you register sales, and the other one for the public dashboard with every prices, curves etc.
+You will need two screens for this app. One for the administration panel, where you register sales, and the other one for the public dashboard with prices, chart etc.
 
 ![administration panel](images/admin.png)
 
@@ -22,7 +22,7 @@ You will need two screens for this app. One for the administration panel, where 
 
 Edit your prices in `parameters > default_prices.js`. You have to follow this structure :
 
-```json
+```js
 {
     "tgr" : { // the trigram of the good
         "initial_price": 1.0, // the start price
@@ -33,7 +33,7 @@ Edit your prices in `parameters > default_prices.js`. You have to follow this st
 }
 ```
 
-Open admin.html in chrome or Edge (doesn't work on Firefox, see #18), and follow the instructions. You will be prompted to either `Schedule the party`, or `Start now`.
+Open admin.html in Chrome or Edge (doesn't work on Firefox, see #18), and follow the instructions. You will be prompted to either `Schedule the party`, or `Start now`.
 
 ![hello you](images/hello_you.png)
 
@@ -41,11 +41,11 @@ Open admin.html in chrome or Edge (doesn't work on Firefox, see #18), and follow
 
 ![hello you](images/schedule_the_party.png)
 
-You will be asked what time to start the party, and a message for the countdown. Once you click on validate, another window will pop-up with the countdown displayed. It is intended for the public. When the countdown hit 0, it will automatically switch to the dashboard.
+You will be asked at what time to start the party, and for a message for the countdown. Once you click on `validate`, another window will pop-up with the displayed countdown. It is intended for the public. When the countdown hits 0, it will automatically switch to the dashboard.
 
 ### Going with `Start now`
 
-This will immediatly open the dashboard in another window. Place this window on your second public screen, and keep the admin panel for your team and yourself.
+This will immediately open the dashboard in another window. Place this window on your second public screen, and keep the admin panel for your team and yourself.
 
 ## During the party
 
@@ -64,7 +64,7 @@ By clicking on the buttons, you can register a new sale. You have a few informat
 
 Using the light red button on the top right corner, you can immediatly start a krach period. During a krach, all prices drop down to what you defined in `default_prices.js`.
 
-Prices after the krach will return to their preèkrach level.
+Prices after the krach will return to their pre-krach level.
 
 ![Dashboard krach](images/dashboard_krach.png)
 
@@ -78,7 +78,7 @@ Here, you can change parametres, and validate them by clicking the `validate` bu
 
 ## Stop the party
 
-There is no mecanism to stop the party. You can close the admin tab, or reload it. By doing this, the public dashboard will no longer be updated.
+There is no mecanism to stop the party. You can close the admin tab, or reload it. By doing so, the public dashboard will no longer be updated.
 
 If you choose to reload it, you will be able to download your party data in CSV format.
 
@@ -88,6 +88,6 @@ If you choose to reload it, you will be able to download your party data in CSV 
 
 This license lets you remix, adapt, and build upon this work non-commercially, as long as you credit me and license your new creations under the identical terms.
 
-If you want to use it commercialy, do not hesitate to contact me, I will be glab to help.
+If you want to use it commercialy, do not hesitate to contact me, I will be glad to help.
 
 ![license CC BY-NC-SA](images/license.png)
