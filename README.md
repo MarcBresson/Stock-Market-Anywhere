@@ -1,12 +1,12 @@
 <div align="center">
     <h1>Stock Market Emulation</h1>
-    <h2>Developed par Marc Bresson</h2>
+    <h2>Developed by Marc Bresson</h2>
     <p align="center">
         <a href="https://linkedin.com/in/marc--bresson"><img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555"/></a>
     </p>
 </div>
 
-Personnal project of a entierly local web app that requires no installation. This web app emulates the stock market on anything with a price variation depending on the sale volume.
+Personnal project of a web app that emulates the stock market on anything, with a price variation depending on the sale volume. This web app is entierly local, and requires no installation.
 
 # Let the party begin !
 
@@ -16,7 +16,7 @@ You will need two screens for this app. One for the administration panel, where 
 
 ![administration panel](images/admin.png)
 
-![interface administrateur](images/dashboard_normal_1.png)
+![administration interface](images/dashboard_normal_1.png)
 
 ## Initialisation
 
@@ -24,7 +24,7 @@ Edit your prices in `parameters > default_prices.js`. You have to follow this st
 
 ```json
 {
-    "tgr" : {
+    "tgr" : { // the trigram of the good
         "initial_price": 1.0, // the start price
         "krach_price": 0.5, // the price of the good during the krach periods
         "full_name": "Trigram", // the full name of the good
@@ -33,18 +33,61 @@ Edit your prices in `parameters > default_prices.js`. You have to follow this st
 }
 ```
 
-Open admin.html in chrome or Edge (doesn't work on Firefox, see #18), and follow the instructions. You will be prompted to either `program the start of the party`, or `start now`.
+Open admin.html in chrome or Edge (doesn't work on Firefox, see #18), and follow the instructions. You will be prompted to either `Schedule the party`, or `Start now`.
 
-## Pendant la soirée
+![hello you](images/hello_you.png)
 
-Vous pouvez regler l'intervalle de temps entre chaque calcul à tout moments dans la soirée. Ouvrez les outils de développement de la page admin.html (F12 ou bien clic droit sur la page > inspecter > console) et tapez : `intervalle_temps = ...` avec une valeur en seconde.
+### Going with `Schedule the party`
 
-De même, il est possible de changer la " puissance " des variations en tapant au même endroit `multiplicateur_variation = ... (=5 par défaut)`.
+![hello you](images/schedule_the_party.png)
 
-/!\ n'actualisez surtout pas la page admin.html, car vos données seront ré-initialisées.
+You will be asked what time to start the party, and a message for the countdown. Once you click on validate, another window will pop-up with the countdown displayed. It is intended for the public. When the countdown hit 0, it will automatically switch to the dashboard.
+
+### Going with `Start now`
+
+This will immediatly open the dashboard in another window. Place this window on your second public screen, and keep the admin panel for your team and yourself.
+
+## During the party
+
+### Make a sale
+
+![Cart'naval](images/cartnaval.png)
+
+By clicking on the buttons, you can register a new sale. You have a few information on every button :
+- At the top in bold, you have the trigram followed by the full name
+- At the bottom left in bold, you have the current price
+- In green at the bottom, you have the variation between the initial price and the current price
+- Just above the variation, you have the initial price
+- In black on a colourful background, you have the number of sales during the current interval
+
+### Make a krach
+
+Using the light red button on the top right corner, you can immediatly start a krach period. During a krach, all prices drop down to what you defined in `default_prices.js`.
+
+Prices after the krach will return to their preèkrach level.
+
+![Dashboard krach](images/dashboard_krach.png)
+
+### Change interval time or price variation amplification
+
+If you want to change the default interval time (60s) or the default price variation amplification (100, see the wiki on how are new prices calculated), you can use the parameters button at the top of the administration panel.
+
+Here, you can change parametres, and validate them by clicking the `validate` button.
+
+![Parametres](images/parametres.png)
+
+## Stop the party
+
+There is no mecanism to stop the party. You can close the admin tab, or reload it. By doing this, the public dashboard will no longer be updated.
+
+If you choose to reload it, you will be able to download your party data in CSV format.
+
+![Download](images/party_going.png)
 
 # License
 
 This license lets you remix, adapt, and build upon this work non-commercially, as long as you credit me and license your new creations under the identical terms.
+
+If you want to use it commercialy, do not hesitate to contact me, I will be glab to help.
 
 ![license CC BY-NC-SA](images/license.png)
