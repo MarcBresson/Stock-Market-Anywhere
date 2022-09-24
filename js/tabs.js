@@ -84,7 +84,7 @@ var countdown_til_start
 document.getElementById("validate_schedule").addEventListener("click", () => {
     let extraction = extract_value_from_schedule()
     let datetime_start = extraction[0]
-    let message = extraction[2]
+    let message = extraction[1]
 
     data_upload("countdown_end", datetime_start)
     data_upload("countdown_message", message)
@@ -104,11 +104,8 @@ document.getElementById("validate_schedule").addEventListener("click", () => {
 function extract_value_from_schedule(){
     let date_start = document.querySelector("#schedule_start input[type=date]")
     let time_start = document.querySelector("#schedule_start input[type=time]")
-    let date_end = document.querySelector("#schedule_end input[type=date]")
-    let time_end = document.querySelector("#schedule_end input[type=time]")
 
     let datetime_start = date_start.value +"T"+ time_start.value +":00"
-    let datetime_end = date_end.value +"T"+ time_end.value +":00"
 
     if(datetime_start.length == 19){
         datetime_start = Date.parse(datetime_start)
@@ -117,15 +114,9 @@ function extract_value_from_schedule(){
         throw 'start date field must be filled'
     }
 
-    if(datetime_end.length != 19){
-        datetime_end = Date.parse(datetime_end)
-    } else {
-        datetime_end = ""
-    }
-
     let message = document.querySelector("#schedule_message input").value
 
-    return [datetime_start, datetime_end, message]
+    return [datetime_start, message]
 }
 
 parametre_refresh_period = document.getElementById("parametre_refresh_period")
