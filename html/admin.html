@@ -2,71 +2,121 @@
 
 <html>
 	<body>
-		<div id="boutons_boissons">
-			<div class="info">
-				<div class="limite_soiree"><span id="texte_temps_restant">temps avant le début de la soirée : </span><span id="temps_restant_soiree"></span></div>
-			</div>
-			<div class="info">
-				<div class="temps_interval">temps restant avant le recalcule des prix :<span id="temps_restant_interval"></span></div>
-			</div>
-			<div class="info">
-				<div class="affichage_pertes">gains :<span class="montant"></span> €</div>
-			</div>
-			<div></div><div></div>
-			<div id="bouton_krach">
-				Krach Boursier
+		<div id="what_to_do_with_data" class="choices_buttons big_buttons" style="display: none;">
+			<h1>You seem to have a party going...</h1>
+			<div class="multiple_buttons_container">
+				<div id="resume" class="zoom gradient_div" style="background-image: linear-gradient( 111.1deg, rgba(0,40,70,1) -4.8%, rgb(115 228 255) 82.7%, rgb(123 255 183) 97.2% );">
+					<h2>Resume the party</h2>
+					<p>So much fun right now, I want it to never stop.</p>
+				</div>
+				<div id="download" class="zoom gradient_div" style="background-image: linear-gradient( 18deg, rgba(0,40,70,1) -4.8%, rgb(115 228 255) 82.7%, rgb(123 255 183) 97.2% );">
+					<h2>Download data</h2>
+					<p>oh, you data scientist. Gotcha, you can create your best data viz with every data point.</p>
+				</div>
+				<div id="reset" class="zoom gradient_div" style="background-image: linear-gradient( 264deg, rgb(4, 55, 94) -4.8%, rgb(83, 209, 241) 88.7%, rgb(123, 255, 242) 98.2% );">
+					<h2>Reset</h2>
+					<p>Sometimes, you need to go back to a clean board to achieve beter. Good luck !</p>
+				</div>
 			</div>
 		</div>
-		<div id="infos_soiree">
-
+		<div id="start_the_party" class="choices_buttons big_buttons" style="display: none;">
+			<h1>Hello you !</h1>
+			<div class="multiple_buttons_container">
+				<div id="schedule_start" class="zoom gradient_div" style="background-image: linear-gradient( 237deg,  rgb(0 40 70) -4.8%, rgb(255 115 115 / 52%) 72.7%, rgba(255,175,123,1) 100% )">
+					<h2>Schedule the party</h2>
+					<p>You want to have a beautiful countdown ? This is the way !</p>
+				</div>
+				<div id="start_now" class="zoom gradient_div" style="background-image: linear-gradient( 111.1deg,  rgba(0,40,70,1) -4.8%, rgba(255,115,115,1) 82.7%, rgba(255,175,123,1) 97.2% );">
+					<h2>Start now !</h2>
+					<p>You seem to be in a hurry. Go go go, Let the party begin !</p>
+				</div>
+			</div>
+		</div>
+		<div id="scheduler" class="scheduler_settings big_buttons" style="display: none;">
+			<h1>Setup the countdown</h1>
+			<div class="multiple_buttons_container">
+				<div id="schedule_start" class="gradient_div" style="background-image: linear-gradient(41deg, #5a5ca3  0%, #ed8ad2 100%);">
+					<h2>Start</h2>
+					<input type="date" class="datepicker-input" required>
+					<p></p>
+					<input type="time" class="datepicker-input" required>
+					<p></p>
+					<script>
+						document.querySelector("#schedule_start input[type=date]").valueAsDate = new Date();
+					</script>
+				</div>
+				<div id="schedule_message" class="gradient_div" style="background-image: linear-gradient(336deg, #7560a7 0%, #df6cbe 100%); height:fit-content;">
+					<h2>Message</h2>
+					<input type="text">
+					<p></p>
+				</div>
+			</div>
+			<div style="margin-top: 40px;">
+				<div id="validate_schedule" class="gradient_button" style="background-image: linear-gradient(193deg, #775ca9 0%, #ed8ad2 100%);">
+					Validate
+				</div>
+			</div>
+		</div>
+		<div id="stock_market" style="display: none;">
+			<div id="top_line">
+				<div id="party_info">
+					<div>new prices in <span id="remaining_time_til_new_prices"></span></div>
+				</div>
+				<div id="button_parametres">
+					<div>Parametres</div>
+				</div>
+				<div id="krach">
+					Krach
+				</div>
+			</div>
+			<div id="drinks">
+				<template>
+					<div class="drink" id="trigram">
+						<div class="name"><span class="trigram">MAR</span> - aux canards dans l'étang</div>
+						<div class="infos">
+							<div class="prices">
+								<span class="actual_price">3€45</span>
+								<div>
+									<div class="initial_price">2€32</div>
+									<div class="variation">+24%</div>
+								</div>
+							</div>
+							<div class="add_sale">+1</div>
+						</div>
+					</div>
+				</template>
+			</div>
+		</div>
+		<div id="parametres" style="display: none;" class="big_buttons">
+			<div class="multiple_buttons_container">
+				<div class="parametre gradient_div" style="background-image: linear-gradient(240deg, #ff823c 0%, #ffc94c 100%);">
+					<h2>Refresh period</h2>
+					<input type="number" id="parametre_refresh_period" value=""/>
+					<p>Compute new prices every n seconds.</p>
+				</div>
+				<div class="parametre gradient_div" style="background-image: linear-gradient(99deg, #ff823c 0%, #ffc94c 100%);">
+					<h2>Prices variation amplification</h2>
+					<input type="number" id="parametre_prices_var_amp" value="">
+					<p>Handles the price variation amplification.</p>
+				</div>
+			</div>
+			<div style="margin-top: 40px;">
+				<div id="validate_parametres" class="gradient_button" style="background-image: linear-gradient(193deg, #ff823c 0%, #ffc94c 100%);">
+					Validate
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
 
-<!-- Importation des paramètres -->
-<script src="../parametres/general.js"></script>
-<script src="../parametres/tarifs_boissons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/tabs.js"></script>
 
-<script>
-	// construit l'interface admin automatiquement en fonction
-	// des paramètres et des tarifs des boissons.
-	boutons_boissons = document.getElementById("boutons_boissons");
-	for(let i in boissons){
-		bouton = document.createElement('div');
-		bouton.className = "bouton_vente";
-		bouton.setAttribute("nom_boisson", i)
-
-		bouton.innerHTML = 
-			"<div class='nom'>" + boissons[i]["nom_complet"] + "</div>" +
-			"<span>prix : <span class='prix'>" + boissons[i]["prix_initial"] + "</span>€</span><br>" +
-			"<span>ventes : <span class='nbr_ventes'>0</span></span>"
-		
-		boutons_boissons.appendChild(bouton)
-	}
-
-	var pertes = 0;
-	var affichage_pertes = document.querySelector('.affichage_pertes .montant')
-
-	var boutons_ventes_boissons = document.querySelectorAll('.bouton_vente')
-	boutons_ventes_boissons.forEach(function(bouton_vente) {
-		bouton_vente.addEventListener('click', function() {
-			let boisson = this.getAttribute('nom_boisson')
-			dernieres_ventes[boisson] += 1;
-			ventes_totales += 1;
-			
-			pertes += boissons[boisson]["prix"].at(-1) - boissons[boisson]["prix_initial"]
-			affichage_pertes.innerHTML = Math.round(pertes * 100)/100
-
-			let DOM_nbr_vente = this.querySelector(".nbr_ventes");
-			DOM_nbr_vente.innerText = parseInt(DOM_nbr_vente.innerText) + 1;
-		});
-	})
-
-	var bouton_krach = document.getElementById('bouton_krach')
-	bouton_krach.addEventListener('click', function() {
-		this.classList.toggle("active");
-		krach_en_cours = !krach_en_cours;
-	});
-</script>
-
-<script src="../js/admin.js"></script>
+<script src="../parametres/default_prices.js"></script>
+<script src="../js/countdown.js"></script>
+<script src="../js/indexes.js"></script>
+<script src="../js/sales.js"></script>
+<script src="../js/prices.js"></script>
+<script src="../js/sale_animation.js"></script>
+<script src="../js/sale_button.js"></script>
+<script src="../js/page_admin.js"></script>

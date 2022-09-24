@@ -1,0 +1,60 @@
+html {
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(26, 40, 49) 0.3%, rgb(9,15,22) 90.2% );
+    background-attachment: fixed;
+    font-family: system-ui;
+    margin: 0px;
+    color: #fff;
+    overflow: hidden;
+}
+body {
+    margin: 0px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+.bar {
+    width: 30px;
+    transition: height 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 7px 7px 0px 0px;
+    opacity: 1;
+    height: 0px;
+    transition: height 3s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.grow {
+    animation-duration: 2s;
+    animation-name: grow_out;
+    animation-fill-mode: forwards;
+}
+@keyframes grow_out {
+    40% {
+        opacity: 1;
+    }
+    60% {
+        height: 1600px;
+    }
+    to {
+        opacity: 0;
+        height: 1600px;
+    }
+}
+#countdown {
+    text-align: center;
+    position:absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+}
+#countdown #message {
+    font-size: 4em;
+    line-height: 0.9;
+    max-width: 800px;
+}
+
+#countdown #countdown_value {
+    line-height: 0.8;
+    font-size: 200px;
+    font-weight: bolder;
+}
+#countdown #countdown_unit {
+    font-size: 50px;
+    font-weight: 600;
+}

@@ -1,46 +1,220 @@
 html {
-    background : #0c0c0e;
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(26, 40, 49) 0.3%, rgb(9,15,22) 90.2% );
+    background-attachment: fixed;
     font-family: system-ui;
+    margin: 0px;
+    color: #fff;
+    transition: background-image 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    scroll-behavior: smooth;
+    overflow: hidden;
 }
-#boutons_boissons {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: min-content;;
+html.active_krach {
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgb(76, 33, 33) 0.3%, rgb(45, 18, 18) 90.2% );
 }
-.bouton_vente {
-    padding:15px 35px;
-    border-radius: 10px;
-    background-color: #2e2e30;
-    color: #ffffff;
-    border: 1px solid transparent;
+body {
+    margin: 0px;
+}
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.big_buttons {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    overflow-y: hidden;
+    justify-content: center;
+}
+
+.big_buttons > div.multiple_buttons_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-gap: 40px;
+}
+.big_buttons > div div.gradient_div {
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 150px;
+}
+
+.choices_buttons > div div {
+    transform: scale(1);
+    transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor:pointer;
+}
+.choices_buttons > div div.zoom:hover {
+    transform: scale(1.05);
+}
+
+.gradient_button {
     cursor: pointer;
-    box-sizing: border-box;
-    transition: all 0.1s ease-in-out;   
+    font-weight: 700;
+    font-size: large;
+    padding: 14px 26px;
+    border-radius: 12px;
+}
+
+.parametre input {
+    width: 100%;
+}
+
+#scheduler, #stock_market {
+    overflow: auto;
+    height:100%;
+}
+
+#top_line {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+}
+
+#party_info {
+    background-color: rgba(255, 255, 255, 0.11);
+    padding: 17px 23px;
+    border-radius: 0px 10px 10px 0px;
+}
+#button_parametres{
+    position: sticky;
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: linear-gradient(193deg, rgba(255, 130, 60, 0.8) 0%, rgba(255, 201, 76, 0.8) 100%);
+    font-weight: 500;
+    padding: 17px 23px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#krach {
+    margin-left: auto;
+    margin-right: 0;
+    background-color: rgba(255, 91, 95, 0.31);
+    padding: 17px 23px;
+    border-radius: 10px 0px 0px 10px;
     height: fit-content;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-.bouton_vente:hover {
-    border: 1px solid rgb(44, 188, 255);
+html.active_krach #krach {
+    padding-right: 70px;
+    background-color: rgb(211, 27, 31);
 }
-.bouton_vente .nom {
-    text-align: center;
-    margin-bottom: 8px;
+
+#drinks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-gap: 15px;
+    max-width: 1200px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-bottom: 30px;
 }
-.info {
-    background-color: rgb(83, 185, 216);
-    padding:15px 35px;
+.drink {
+    padding: 10px;
     border-radius: 10px;
-}
-#bouton_krach {
-    padding:15px 35px;
-    border-radius: 10px;
-    font-size: 1.3em;
-    background-color: #cf4848;
-    color: #000;
+    width: 190px;
+    height: 115px;
+    display: grid;
+    align-content: space-between;
+    background-color: rgba(255, 255, 255, 0.11);
+    transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
     box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
 }
-#bouton_krach.active {
-    background-color: rgb(173, 20, 20);
-    font-weight: 800;
+.drink[disabled]{
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+.drink .name .trigram {
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.drink .name .full_name {
+    text-transform: capitalize;
+}
+.drink .infos {
+    margin-top:15px;
+}
+
+.drink .infos .prices {
+    display: flex;
+    flex-wrap: nowrap;
+    line-height: 1;
+}
+.drink .infos .prices > span {
+    font-size: 25px;
+}
+.drink .infos .prices > div {
+    display: block;
+    margin-left: 10px;
+    font-size: 12px;
+}
+.drink .infos .prices > div .variation {
+    line-height: 1.1;
+}
+.drink .infos .prices > div .variation[sign="positive"] {
+    color: #8ded39;
+}
+.drink .infos .prices > div .variation[sign="negative"] {
+    color: #f02329;
+}
+.drink .infos .add_sale {
+    position: absolute;
+    font-weight: 900;
+    color: #000;
+    padding: 10px;
+    line-height: 1;
+    border-radius: 7px 7px 0px 0px;
+    right: 15px;
+    bottom: -33px;
+    height: 25px;
+    transition: bottom 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.drink:hover .add_sale {
+    bottom: 0px;
+}
+
+.drink:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+input[type="date"], input[type="time"] {
+    background-color: rgba(255, 255, 255, 0.11);
+    border:none;
+    color: inherit;
+    font-size: large;
+    border-radius: 5px;
+    cursor: pointer;
+    padding:4px 6px;
+}
+
+/* make the native arrow invisible and stretch it over the whole field so you can click anywhere in the input field to trigger the native datepicker*/
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23ffffff" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+    padding-right: 5px !important;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 490 490"><path fill="%23ffffff" d="M245,0C109.5,0,0,109.5,0,245s109.5,245,245,245s245-109.5,245-245S380.5,0,245,0z M245,449.3c-112.6,0-204.3-91.7-204.3-204.3S132.4,40.7,245,40.7S449.3,132.4,449.3,245S357.6,449.3,245,449.3z"/><path fill="%23ffffff" d="M290.9,224.1h-25v-95.9c0-11.5-9.4-20.9-20.9-20.9s-20.9,9.4-20.9,20.9V245c0,11.5,9.4,20.9,20.9,20.9h45.9c11.5,0,20.9-9.4,20.9-20.9S302.3,224.1,290.9,224.1z"/></svg>');
+    padding-right: 5px !important;
+}
+
+#schedule_message {
+    max-width: inherit;
+}
+#schedule_message input, .parametre input {
+    background: rgba(0, 0, 0, 0.11);
+    border: none;
+    font-size: large;
+    border-radius: 5px;
+    padding:4px 6px;
+    color: inherit;
 }
