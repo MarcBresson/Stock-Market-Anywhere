@@ -1,5 +1,6 @@
 <div align="center">
     <h1>Stock Market Anywhere</h1>
+    <img src="images/SMA%20logo.png" width="500" height="250"/>
     <h2>Developed by Marc Bresson</h2>
     <p align="center">
         <a href="https://linkedin.com/in/marc--bresson"><img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555"/></a>
@@ -20,20 +21,20 @@ You will need two screens for this app. One for the administration panel, where 
 
 ## Initialisation
 
-Edit your prices in `parameters > default_prices.js`. You have to follow this structure :
+Edit your goods and prices in `parameters > default_prices.js`. You have to follow this structure :
 
 ```js
 {
     "tgr" : { // the trigram of the good
+        "full_name": "Trigram", // the full name of the good
         "initial_price": 1.0, // the start price
         "krach_price": 0.5, // the price of the good during the krach periods
-        "full_name": "Trigram", // the full name of the good
         "min_price": 0.4 // OPTIONAL : the minimum price. If not specified, the good will not have any limit, and will be regulated by the market
     }
 }
 ```
 
-Open admin.html in Chrome or Edge (doesn't work on Firefox, see #18), and follow the instructions. You will be prompted to either `Schedule the party`, or `Start now`.
+Open admin.html in Chrome or Edge (unfortunately, it doesn't work on Firefox, see #18), and follow the instructions. You will be prompted to either `Schedule the party`, or `Start now`.
 
 ![hello you](images/hello_you.png)
 

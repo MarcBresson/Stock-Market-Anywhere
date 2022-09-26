@@ -1,5 +1,5 @@
 var prices = new Prices()
-refresh_period = 15
+refresh_period = 60
 var indexes = new Indexes(refresh_period)
 var sales = new Sales()
 
