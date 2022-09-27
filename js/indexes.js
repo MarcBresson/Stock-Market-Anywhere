@@ -26,7 +26,7 @@ class Indexes{
     }
 
     time_until_next(){
-        let milliseconds_remaining = this.last()[0] + refresh_period * 1000 - Date.now()
+        let milliseconds_remaining = this.last()[0] + this.refresh_period * 1000 - Date.now()
         return Math.ceil(milliseconds_remaining / 1000)
     }
 
