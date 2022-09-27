@@ -1,6 +1,6 @@
 <div align="center">
     <h1>Stock Market Anywhere</h1>
-    <img src="images/SMA%20logo.png" width="500" height="250"/>
+    <img src="images/SMA%20logo.png" style="max-width:500px"/>
     <h2>Developed by Marc Bresson</h2>
     <p align="center">
         <a href="https://linkedin.com/in/marc--bresson"><img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555"/></a>
